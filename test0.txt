@@ -1,0 +1,7 @@
+move A up
+move A down
+move C left
+abilities
+ability 2
+ability 1
+board

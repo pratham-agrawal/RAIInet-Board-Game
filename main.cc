@@ -1,13 +1,46 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <memory>
 using namespace std;
 
+bool readFromFile(string file){
+    ifstream in(file);
+    string fileCommand;
+    for ( ;; ){
+        in >> fileCommand;
+        if (in.fail()) return false;
+        if (fileCommand == "quit"){
+            cout << "Game is quit" << endl;
+            return true;
+            break;
+        }
+        else if (fileCommand == "move") {
+            char link;
+            string direction;
+            in >> link >> direction;
+            cout << "We want to move link: " << link << " direction: " << direction << endl;
+        }
+        else if (fileCommand == "abilities") {
+            cout << "The abilities are: " << endl;
+        }
+        else if (fileCommand == "ability") {
+            int ability;
+            in >> ability;
+            cout << "Executing ability: " << ability << endl;
+        }
+        else if (fileCommand == "board") {
+            cout << "Here is the board: " << endl;
+        }
+    }
+}
+
+
 int main () {
   string command;
-
+  bool ended = false;
   while (cin >> command) {
-    if (command == "quit" ) {
+    if (command == "quit") {
       cout << "Game is quit" << endl;
       break;
     }
@@ -31,9 +64,11 @@ int main () {
 
     }
     else if (command == "sequence") {
-      string file;
-      cin >> file;
-      cout << "Executing action from file: " << file << endl;
+      ended = false;
+      string infile;
+      cin >> infile;
+      ended = readFromFile(infile);
+      if(ended) break;      
     }
   }
 }
