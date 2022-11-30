@@ -3,11 +3,9 @@
 #include "observer.h"
 #include "board.h"
 #include "addText.h"
-
 using namespace std;
 
-addText::addText(board *s):
-  subject{s}{
+addText::addText(Board *s): subject{s} {
   subject->attach(this);
 }
 
@@ -24,7 +22,7 @@ void addText::notify() {
     cout << "========" << endl;
     for (int i = 0; i < 8; ++i){
         for (int j = 0; j < 8; ++j){
-            cout << ". "
+            cout << subject->getState(i,j);
         }
         cout << endl;
     }

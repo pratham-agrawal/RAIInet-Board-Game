@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 
-class player: public board {
+class Player {
     
-}
+};
+
+#endif
