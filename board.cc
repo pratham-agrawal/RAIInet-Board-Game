@@ -2,4 +2,3 @@
 
 void Board::move (piece: string, direction: string){
 }
-

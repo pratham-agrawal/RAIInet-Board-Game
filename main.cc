@@ -4,6 +4,8 @@
 #include <memory>
 using namespace std;
 
+#testing
+
 bool readFromFile(string file){
     ifstream in(file);
     string fileCommand;
