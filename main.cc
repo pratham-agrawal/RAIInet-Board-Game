@@ -69,6 +69,7 @@ int main () {
     }
     else if (command == "board") {
       cout << "Here is the board: " << endl;
+      cout << "Sup dog" << endl;
       text->notify();
     }
     else if (command == "sequence") {
