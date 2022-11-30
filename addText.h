@@ -5,10 +5,10 @@
 #include "board.h"
 
 class addText: public Observer {
-  board *subject;
+  Board *subject;
   
  public:
-  addText(board *s);
+  addText(Board *s);
   void notify() override;
   ~addText();
 };

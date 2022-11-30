@@ -2,6 +2,11 @@
 #include <fstream>
 #include <vector>
 #include <memory>
+#include "board.h"
+#include "addText.h"
+#include "subject.h"
+#include "observer.h"
+#include "cell.h"
 using namespace std;
 
 #testing
@@ -39,6 +44,9 @@ bool readFromFile(string file){
 
 
 int main () {
+  Board b;
+  addText * text = new addText(&b);
+  
   string command;
   bool ended = false;
   while (cin >> command) {
@@ -63,7 +71,7 @@ int main () {
     }
     else if (command == "board") {
       cout << "Here is the board: " << endl;
-
+      text->notify();
     }
     else if (command == "sequence") {
       ended = false;
@@ -73,5 +81,6 @@ int main () {
       if(ended) break;      
     }
   }
+  delete text;
 }
 
