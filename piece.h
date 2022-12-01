@@ -22,6 +22,7 @@ class Piece {
         bool playerTwo() const;
         void setBoard(Board * b);
         void setCell(Cell * c);
+        Cell* getCell();
         bool Virus() const;
         void setVirus(bool vir);
 };

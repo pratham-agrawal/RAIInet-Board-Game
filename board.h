@@ -9,12 +9,14 @@
 
 class Board: public Subject{
     std::vector<std::vector<Cell*>> theBoard;
+    std::vector<Piece*> p1Pieces;
+    std::vector<Piece*> p2Pieces;
     //Player* p1;
     //Player* p2;
     public:
         Board();
         void basic_setup();
-        //void move (Piece * p, string direction);
+        void movePiece(char name, std::string direction);
         char getState(int row, int col) const;
         bool positionOccupied(int x, int y);
         //void removePiece(p: *Piece);
