@@ -58,6 +58,7 @@ int main () {
       string direction;
       cin >> link >> direction;
       cout << "We want to move link: " << link << " direction: " << direction << endl;
+      b.movePiece(link, direction);
     }
     else if (command == "abilities") {
       cout << "The abilities are: " << endl;

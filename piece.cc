@@ -26,3 +26,7 @@ void Piece::setBoard(Board * b){
 void Piece::setCell(Cell * c){
     cell = c;
 }
+
+Cell* Piece::getCell(){
+    return cell;
+}
