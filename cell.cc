@@ -4,13 +4,10 @@ using namespace std;
 Cell::Cell(int row, int col) : row{row}, col{col}, firewall{0}, server{0} {}
 
 int Cell::hasPiece() const{
-    return false;
-    /*
     if (piece == nullptr){
-        return true;
+        return false;
     }
-    return false;
-    */
+    return true;
 }
 
 
@@ -30,6 +27,10 @@ int Cell::getCol(){
     return col;
 }
 
+Piece* Cell::getPiece(){
+    return piece;
+}
+
 void Cell::setBoard(Board * b){
     theBoard = b;
 }
@@ -41,4 +42,8 @@ void Cell::setFirewall(int x){
 
 void Cell::setServer(int x){
     server = x;
+}
+
+void Cell::setPiece(Piece *p){
+    piece = p;
 }

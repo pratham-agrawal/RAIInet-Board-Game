@@ -43,6 +43,7 @@ bool readFromFile(string file){
 
 int main () {
   Board b;
+  b.basic_setup();
   addText * text = new addText(&b);
   
   string command;

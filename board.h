@@ -8,11 +8,12 @@
 //#include "player.h"
 
 class Board: public Subject{
-    std::vector<std::vector<Cell>> theBoard;
+    std::vector<std::vector<Cell*>> theBoard;
     //Player* p1;
     //Player* p2;
     public:
         Board();
+        void basic_setup();
         //void move (Piece * p, string direction);
         char getState(int row, int col) const;
         bool positionOccupied(int x, int y);

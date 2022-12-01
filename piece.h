@@ -7,16 +7,21 @@
 
 class Board;
 
+class Cell;
+
 class Piece {
     Board * b;
-    Cell *cell;
+    Cell * cell;
     char name;
     bool isVirus;
     int strength;
     bool playerNum;
     public:
-        Piece(Board *b, Cell *c, char n, bool vir, int str, bool player);
+        Piece(char n, bool vir, int str, bool player);
+        char getName() const;
         bool playerTwo() const;
+        void setBoard(Board * b);
+        void setCell(Cell * c);
         bool Virus() const;
         void setVirus(bool vir);
 };

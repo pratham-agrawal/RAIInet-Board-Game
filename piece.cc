@@ -1,7 +1,11 @@
 #include "piece.h"
 using namespace std;
 
-Piece::Piece(Board *b, Cell *c, char n, bool vir, int str, bool player): b{b}, cell{c}, name{n}, isVirus{vir}, strength{str}, playerNum{player}{}
+Piece::Piece(char n, bool vir, int str, bool player): name{n}, isVirus{vir}, strength{str}, playerNum{player}{}
+
+char Piece::getName() const{
+    return name;
+}
 
 bool Piece::playerTwo() const{
     return playerNum - 1;
@@ -13,4 +17,12 @@ bool Piece::Virus() const{
 
 void Piece::setVirus(bool vir){
     isVirus = vir;
+}
+
+void Piece::setBoard(Board * b){
+    b = b;
+}
+
+void Piece::setCell(Cell * c){
+    cell = c;
 }
