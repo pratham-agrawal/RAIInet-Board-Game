@@ -96,3 +96,6 @@ bool Piece::getRevealed(){
     return isRevealed;
 }
 */
+void Piece::changeName(char newName) {
+    name = newName;
+}

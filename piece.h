@@ -46,6 +46,7 @@ class Piece {
         void setBoosted(bool val);
         //bool flipRevealed();
         //bool getRevealed();
+        void changeName(char newName);
 };
 
 #endif
