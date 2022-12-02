@@ -49,6 +49,7 @@ class Piece {
         void setDownloaded(bool d);
         //bool flipRevealed();
         //bool getRevealed();
+        void changeName(char newName);
 };
 
 #endif
