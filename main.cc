@@ -138,11 +138,11 @@ int main (int argc, char* argv[]) {
       string direction;
       cin >> link >> direction;
       cout << "We want to move link: " << link << " direction: " << direction << endl;
-      b->movePiece(link, direction);
-      if (b->getPlayerTurn() == 1) {
+      bool valid = b->movePiece(link, direction);
+      if (b->getPlayerTurn() == 1 && valid) {
         b->setTurn(2);
       }
-      else {
+      else if(valid){
         b->setTurn(1);
       }
     }

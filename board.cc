@@ -68,26 +68,26 @@ char Board::getState(int row, int col) const {
     return '.';
 }
 
-void Board::movePiece(char name, string direction){
+bool Board::movePiece(char name, string direction){
     //Set player and piece
     int player_num = 0;
     Piece * currentPiece = nullptr;
     Player * player = nullptr;
     Player * opponent = nullptr;
     
-    if(name >= 65 && name <= 72){
+    if(name >= 65 && name <= 72 && playerTurn == 2){
         currentPiece = p2->getPieces().at(name - 65);
         player_num = 2;
         player = p2;
         opponent = p1;
-    } else if (name >= 97 && name <= 104){
+    } else if (name >= 97 && name <= 104 && playerTurn == 1){
         currentPiece = p1->getPieces().at(name - 97);
         player_num = 1;
         player = p1;
         opponent = p2;
     } else {
         cout << "invalid piece" << endl;
-        return;
+        return false;
     }
 
     int oldX = currentPiece->getRow();
@@ -123,12 +123,12 @@ void Board::movePiece(char name, string direction){
             player->downloadData();
         }
         theBoard.at(oldX).at(oldY)->setPiece(nullptr);
-        return;
+        return true;
     }
 
     if (newX < 0 || newX > 7 || newY < 0 || newY > 7){
         cout << "Attempting to move off board" << endl;
-        return;
+        return false;
         //throw ();
     }
 
@@ -138,7 +138,7 @@ void Board::movePiece(char name, string direction){
     if (targetCell->isServer()){
         if (targetCell->isServer() == player_num){
             cout << "Attempting to move onto own server" << endl;
-            return;
+            return false;
             //throw();
         }
         else {
@@ -150,7 +150,7 @@ void Board::movePiece(char name, string direction){
                 opponent->downloadData();
             }
             theBoard.at(oldX).at(oldY)->setPiece(nullptr);
-            return;
+            return true;
         }
     }
 
@@ -159,7 +159,7 @@ void Board::movePiece(char name, string direction){
     if (targetCell->hasPiece()){
         if (targetCell->hasPiece() == player_num){
             cout << "Attempting to move to square with own piece" << endl;
-            return;
+            return false;
             //throw ();
         }
         else {
@@ -173,6 +173,7 @@ void Board::movePiece(char name, string direction){
                 }
                 currentPiece->setVisibility(true);
                 targetCell->getPiece()->setVisibility(true);
+                return true;
                 //remove from player?? set downloaded to true??
             }
             else {
@@ -186,8 +187,8 @@ void Board::movePiece(char name, string direction){
                 currentPiece->setVisibility(true);
                 targetCell->getPiece()->setVisibility(true);
                 theBoard.at(oldX).at(oldY)->setPiece(nullptr);
+                return true;
                 // remove from player?? set downloaded to true??
-                return;
             }
         }
     }
@@ -206,7 +207,7 @@ void Board::movePiece(char name, string direction){
             targetCell->setPiece(nullptr);
         }
     }
-
+    return true;
 }
 
 Player * Board::getP1(){

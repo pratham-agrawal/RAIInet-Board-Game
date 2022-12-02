@@ -16,7 +16,7 @@ class Board: public Subject{
     public:
         Board(Player *player1, Player *player2, int playT);
         void basic_setup();
-        void movePiece(char name, std::string direction);
+        bool movePiece(char name, std::string direction);
         char getState(int row, int col) const;
         bool positionOccupied(int x, int y);
         Player* getP1();
