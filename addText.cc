@@ -14,11 +14,26 @@ addText::~addText() {
 }
 
 void addText::notify() {
-  cout << "Player " << ":" << endl;
-  cout << "Downloaded: " << ", " << endl;
-  cout << "Abilities: " << endl;
-  cout << "a: " << "b: " << "c: " << "d: " << endl;
-  cout << "e: " << "f: " << "g: " << "h: " << endl;
+  Player * p1 = subject->getP1();
+  Player * p2 = subject->getP2();
+  cout << "Player " << "1" << ":" << endl;
+  cout << "Downloaded: " << p1->getData() << "D, " << p1->getVirus() << "V" << endl;
+  cout << "Abilities: " << p1->getAbilities().size() << endl;
+  for (int i = 0; i < 8; i++){
+    cout << char(i+97) << ": ";
+    if(subject->getPlayerTurn() == 1){ 
+      cout << p1->getPieces().at(i)->getLinkName();
+    } else{
+      cout << '?';
+    }
+    cout << " ";
+    if (i == 3){
+      cout << endl;
+    }
+  }
+  cout << endl;
+  //cout << "a: " << "b: " << "c: " << "d: " << endl;
+  //cout << "e: " << "f: " << "g: " << "h: " << endl;
   cout << "========" << endl;
   for (int i = 0; i < 8; ++i){
       for (int j = 0; j < 8; ++j){
@@ -27,11 +42,24 @@ void addText::notify() {
       cout << endl;
   }
   cout << "========" << endl;
-  cout << "Player " << ":" << endl;
-  cout << "Downloaded: " << ", " << endl;
-  cout << "Abilities: " << endl;
-  cout << "A: " << "B: " << "C: " << "D: " << endl;
-  cout << "E: " << "F: " << "G: " << "H: " << endl;
+  cout << "Player " << "2" << ":" << endl;
+  cout << "Downloaded: " << p2->getData() << "D, " << p2->getVirus() << "V" << endl;
+  cout << "Abilities: " << p2->getAbilities().size() << endl;
+  for (int i = 0; i < 8; i++){
+    cout << char(i+65) << ": ";
+    if(subject->getPlayerTurn() == 2){ 
+      cout << p2->getPieces().at(i)->getLinkName();
+    } else{
+      cout << '?';
+    }
+    cout << " ";
+    if (i == 3){
+      cout << endl;
+    }
+  }
+  cout << endl;
+  //cout << "A: " << "B: " << "C: " << "D: " << endl;
+  //cout << "E: " << "F: " << "G: " << "H: " << endl;
 }
 
 

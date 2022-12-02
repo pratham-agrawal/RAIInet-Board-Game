@@ -38,6 +38,7 @@ class Piece {
         void setRow(int r);
         void setVisibility(bool vis);
         bool getVisibility();
+        std::string getLinkName();
 };
 
 #endif

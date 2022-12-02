@@ -10,6 +10,7 @@ class Player {
     std::vector<Piece *> pieces;
     int dataDownloaded;
     int virusDownloaded;
+    std::vector<char> abilities;
     public:
         Player();
         ~Player();
@@ -19,6 +20,7 @@ class Player {
         void downloadVirus();
         int getData();
         int getVirus();
+        std::vector<char> getAbilities();
 };
 
 #endif

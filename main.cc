@@ -123,12 +123,11 @@ int main (int argc, char* argv[]) {
   Player *player1 = new Player();
   Player *player2 = new Player();
   game_setup(argc, argv, player1, player2);
-  Board *b = new Board(player1, player2);
+  Board *b = new Board(player1, player2, 1);
   b->basic_setup();
   addText * text = new addText(b);
   string command;
   bool ended = false;
-  int playersTurn = 1;
   while (cin >> command) {
     if (command == "quit") {
       cout << "Game is quit" << endl;
@@ -140,6 +139,12 @@ int main (int argc, char* argv[]) {
       cin >> link >> direction;
       cout << "We want to move link: " << link << " direction: " << direction << endl;
       b->movePiece(link, direction);
+      if (b->getPlayerTurn() == 1) {
+        b->setTurn(2);
+      }
+      else {
+        b->setTurn(1);
+      }
     }
     else if (command == "abilities") {
       cout << "The abilities are: " << endl;
@@ -150,7 +155,7 @@ int main (int argc, char* argv[]) {
       cout << "Executing ability: " << ability << endl;
     }
     else if (command == "board") {
-      cout << "Here is the board: " << endl;
+      //cout << "Here is the board: " << endl;
       text->notify();
     }
     else if (command == "sequence") {
@@ -159,12 +164,6 @@ int main (int argc, char* argv[]) {
       cin >> infile;
       ended = readFromFile(infile);
       if(ended) break;      
-    }
-    if (playersTurn == 1) {
-      playersTurn = 2;
-    }
-    else {
-      playersTurn = 1;
     }
   }
   delete text;

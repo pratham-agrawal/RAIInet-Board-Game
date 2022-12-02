@@ -6,7 +6,8 @@
 using namespace std;
 
 Player::Player(): dataDownloaded{0}, virusDownloaded{0} {
-    vector<Piece> pieces;
+    vector<Piece *> pieces;
+    vector<char> abilities;
 }
 
 // void Player::setPieces(int playerNum) {
@@ -53,4 +54,8 @@ int Player::getData(){
 
 int Player::getVirus(){
     return virusDownloaded;
+}
+
+vector<char> Player::getAbilities(){
+    return abilities;
 }

@@ -6,7 +6,7 @@
 #include "piece.h"
 using namespace std;
 
-Board::Board(Player *player1, Player *player2): p1{player1}, p2{player2} {
+Board::Board(Player *player1, Player *player2, int playT): p1{player1}, p2{player2}, playerTurn{playT} {
     //Create empty cells
     for (int i=0; i<8; i++){
         vector<Cell *> vect;
@@ -207,4 +207,20 @@ void Board::movePiece(char name, string direction){
         }
     }
 
+}
+
+Player * Board::getP1(){
+    return p1;
+}
+
+Player * Board::getP2(){
+    return p2;
+}
+
+int Board::getPlayerTurn(){
+    return playerTurn;
+}
+
+void Board::setTurn(int turn){
+    playerTurn = turn;
 }

@@ -67,3 +67,7 @@ void Piece::setVisibility(bool vis){
 bool Piece::getVisibility(){
     return isVisible;
 }
+
+string Piece::getLinkName(){
+    return link;
+}
