@@ -13,16 +13,19 @@ class Piece {
     Board * b;
     Cell * cell;
     char name;
+    std::string link;
     bool isVirus;
     int strength;
     int playerNum;
     bool isVisible;
     public:
-        Piece(char n, bool vir, int str, int player);
+        Piece(char n, std::string link, bool vir, int str, int player);
         char getName() const;
+        std::string getLink() const;
         bool playerTwo() const;
         void setBoard(Board * b);
         void setCell(Cell * c);
+        int getStrength();
         Cell* getCell();
         bool Virus() const;
         void setVirus(bool vir);

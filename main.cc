@@ -59,7 +59,8 @@ void setupLinks(string file, Player *player, int playerNum) {
       isVirus = true;
     }
     strength = int(token[1] - '0');
-    Piece *p = new Piece(ascii, isVirus, strength, playerNum);
+    Piece *p = new Piece(ascii, token, isVirus, strength, playerNum);
+    // cout << "Piece Created: This is my strength: " << p->getStrength() << endl;
     player->addPiece(p);
     ++ascii;
   }
@@ -127,6 +128,7 @@ int main (int argc, char* argv[]) {
   addText * text = new addText(b);
   string command;
   bool ended = false;
+  int playersTurn = 1;
   while (cin >> command) {
     if (command == "quit") {
       cout << "Game is quit" << endl;
@@ -146,7 +148,6 @@ int main (int argc, char* argv[]) {
       int ability;
       std::cin >> ability;
       cout << "Executing ability: " << ability << endl;
-
     }
     else if (command == "board") {
       cout << "Here is the board: " << endl;
@@ -158,6 +159,12 @@ int main (int argc, char* argv[]) {
       cin >> infile;
       ended = readFromFile(infile);
       if(ended) break;      
+    }
+    if (playersTurn == 1) {
+      playersTurn = 2;
+    }
+    else {
+      playersTurn = 1;
     }
   }
   delete text;
