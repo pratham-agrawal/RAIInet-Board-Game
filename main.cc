@@ -6,10 +6,13 @@
 #include "addText.h"
 #include "subject.h"
 #include "observer.h"
+#include "player.h"
 #include "cell.h"
+#include <cstring>
+#include "piece.h"
 using namespace std;
 
-bool readFromFile(string file){
+bool readFromFile(string file) {
     ifstream in(file);
     string fileCommand;
     for ( ;; ){
@@ -40,14 +43,92 @@ bool readFromFile(string file){
     }
 }
 
+void setupLinks(string file, Player *player, int playerNum) {
+  ifstream in(file);
+  string token;
+  char ascii;
+  if (playerNum == 1) {
+    ascii = 'a';
+  } else {
+    ascii = 'A';
+  }
+  while (in >> token) {
+    bool isVirus = false;
+    int strength;
+    if (token[0] == 'v' || token[0] == 'V') {
+      isVirus = true;
+    }
+    strength = int(token[1] - '0');
+    Piece *p = new Piece(ascii, token, isVirus, strength, playerNum);
+    // cout << "Piece Created: This is my strength: " << p->getStrength() << endl;
+    player->addPiece(p);
+    ++ascii;
+  }
+}
 
-int main () {
-  Board b;
-  b.basic_setup();
-  addText * text = new addText(&b);
-  
+void game_setup(int argc, char* argv[], Player *player1, Player *player2) {
+  bool ability1 = false;
+  bool ability2 = false;
+  bool link1 = false;
+  bool link2 = false;
+  bool graphics = false;
+  string order;
+  string placement_file;
+  int cmd_line_arg = 1;
+
+  while (cmd_line_arg < argc) {
+    if (!strcmp(argv[cmd_line_arg], "-ability1")) {
+      ability1 = true;
+      ++cmd_line_arg;
+      order = argv[cmd_line_arg];
+    }
+    else if (!strcmp(argv[cmd_line_arg], "-ability2")) {
+      ability2 = true;
+      ++cmd_line_arg;
+      order = argv[cmd_line_arg];
+    }
+    else if (!strcmp(argv[cmd_line_arg], "-link1")) {
+      link1 = true;
+      ++cmd_line_arg;
+      placement_file = argv[cmd_line_arg];
+      setupLinks(placement_file, player1, 1);
+    }
+    else if (!strcmp(argv[cmd_line_arg], "-link2")) {
+      link2 = true;
+      ++cmd_line_arg;
+      placement_file = argv[cmd_line_arg];
+      setupLinks(placement_file, player2, 2);
+    }
+    else if (!strcmp(argv[cmd_line_arg], "-graphics")) {
+      graphics = true;
+      // enable graphics
+    }
+    ++cmd_line_arg;
+  }
+  if (!ability1) {
+    order = "LFDSP";
+  }
+  if (!ability2) {
+    order = "LFDSP";
+  }
+  if (!link1) {
+    // string random = randomize();
+  }
+  if (!link2) {
+    // string random = randomize();
+  }
+}
+
+int main (int argc, char* argv[]) {
+  Player *player1 = new Player();
+  Player *player2 = new Player();
+  game_setup(argc, argv, player1, player2);
+  Board *b = new Board(player1, player2);
+  b->basic_setup();
+  addText * text = new addText(b);
   string command;
   bool ended = false;
+  int playersTurn = 1;
   while (cin >> command) {
     if (command == "quit") {
       cout << "Game is quit" << endl;
@@ -58,7 +139,7 @@ int main () {
       string direction;
       cin >> link >> direction;
       cout << "We want to move link: " << link << " direction: " << direction << endl;
-      b.movePiece(link, direction);
+      b->movePiece(link, direction);
     }
     else if (command == "abilities") {
       cout << "The abilities are: " << endl;
@@ -67,7 +148,6 @@ int main () {
       int ability;
       std::cin >> ability;
       cout << "Executing ability: " << ability << endl;
-
     }
     else if (command == "board") {
       cout << "Here is the board: " << endl;
@@ -79,6 +159,12 @@ int main () {
       cin >> infile;
       ended = readFromFile(infile);
       if(ended) break;      
+    }
+    if (playersTurn == 1) {
+      playersTurn = 2;
+    }
+    else {
+      playersTurn = 1;
     }
   }
   delete text;

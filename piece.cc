@@ -1,10 +1,14 @@
 #include "piece.h"
 using namespace std;
 
-Piece::Piece(char n, bool vir, int str, bool player): name{n}, isVirus{vir}, strength{str}, playerNum{player}{}
+Piece::Piece(char n, string link, bool vir, int str, int player): name{n},  link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false} {}
 
 char Piece::getName() const{
     return name;
+}
+
+std::string Piece::getLink() const {
+    return link;
 }
 
 bool Piece::playerTwo() const{
@@ -25,6 +29,10 @@ void Piece::setBoard(Board * b){
 
 void Piece::setCell(Cell * c){
     cell = c;
+}
+
+int Piece::getStrength() {
+    return strength;
 }
 
 Cell* Piece::getCell(){

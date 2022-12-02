@@ -5,21 +5,21 @@
 #include "subject.h"
 #include "cell.h"
 #include <memory>
-//#include "player.h"
+#include "player.h"
+#include <vector>
 
 class Board: public Subject{
     std::vector<std::vector<Cell*>> theBoard;
-    std::vector<Piece*> p1Pieces;
-    std::vector<Piece*> p2Pieces;
-    //Player* p1;
-    //Player* p2;
+    Player *p1;
+    Player *p2;
     public:
-        Board();
+        Board(Player *player1, Player *player2);
         void basic_setup();
         void movePiece(char name, std::string direction);
         char getState(int row, int col) const;
         bool positionOccupied(int x, int y);
         //void removePiece(p: *Piece);
 };
+
 
 #endif
