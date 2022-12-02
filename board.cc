@@ -2,9 +2,11 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include "player.h"
+#include "piece.h"
 using namespace std;
 
-Board::Board(){
+Board::Board(Player *player1, Player *player2): p1{player1}, p2{player2} {
     //Create empty cells
     for (int i=0; i<8; i++){
         vector<Cell *> vect;
@@ -14,60 +16,92 @@ Board::Board(){
 			theBoard.at(i).at(j)->setBoard(this);
 		}
 	}
-
 }
 
-void Board::basic_setup(){
+void Board::basic_setup() {
     //creates servers
     theBoard.at(0).at(3)->setServer(1);
     theBoard.at(0).at(4)->setServer(1);
     theBoard.at(7).at(3)->setServer(2);
     theBoard.at(7).at(4)->setServer(2);
-    
-    //creates pieces A,B,C & a,b,c
-    for(int i = 0; i < 3; i++){
-        Piece * A = new Piece(i+65, false, 0, false);
-        A->setBoard(this);
-        A->setCell(theBoard.at(7).at(i));
-        theBoard.at(7).at(i)->setPiece(A);
-        p2Pieces.emplace_back(A);
 
-        Piece * a = new Piece(i+97, false, 0, false);
-        a->setBoard(this);
-        a->setCell(theBoard.at(0).at(i));
-        theBoard.at(0).at(i)->setPiece(a);
-        p1Pieces.emplace_back(a);
-    }
+    cout << p1->getPieces().size() << endl;
+    cout << p2->getPieces().size() << endl;
 
-    //creates pieces D,E & d,e
-    for(int i = 3; i < 5; i++){
-        Piece * A = new Piece(i+65, false, 0, false);
-        A->setBoard(this);
-        A->setCell(theBoard.at(6).at(i));
-        theBoard.at(6).at(i)->setPiece(A);
-        p2Pieces.emplace_back(A);
+    // for (int i = 0; i < 3; ++i) {
+    //     p2->getPieces().at(i)->setBoard(this);
+    //     p2->getPieces().at(i)->setCell(theBoard.at(7).at(i));
+    //     theBoard.at(7).at(i)->setPiece(p2->getPieces().at(i));
 
-        Piece * a = new Piece(i+97, false, 0, false);
-        a->setBoard(this);
-        a->setCell(theBoard.at(1).at(i));
-        theBoard.at(1).at(i)->setPiece(a);
-        p1Pieces.emplace_back(a);
-    }
+    //     p1->getPieces().at(i)->setBoard(this);
+    //     p1->getPieces().at(i)->setCell(theBoard.at(0).at(i));
+    //     theBoard.at(0).at(i)->setPiece(p1->getPieces().at(i));
+    // }
+
+    // //creates pieces A,B,C & a,b,c
+    // // for(int i = 0; i < 3; i++){
+    // //     Piece * A = new Piece(i+65, false, 0, false);
+    // //     A->setBoard(this);
+    // //     A->setCell(theBoard.at(7).at(i));
+    // //     theBoard.at(7).at(i)->setPiece(A);
+    // //     p2Pieces.emplace_back(A);
+
+    // //     Piece * a = new Piece(i+97, false, 0, false);
+    // //     a->setBoard(this);
+    // //     a->setCell(theBoard.at(0).at(i));
+    // //     theBoard.at(0).at(i)->setPiece(a);
+    // //     p1Pieces.emplace_back(a);
+    // // }
+
+    // for (int i = 3; i < 5; ++i) {
+    //     p2->getPieces().at(i)->setBoard(this);
+    //     p2->getPieces().at(i)->setCell(theBoard.at(6).at(i));
+    //     theBoard.at(6).at(i)->setPiece(p2->getPieces().at(i));
+
+    //     p1->getPieces().at(i)->setBoard(this);
+    //     p1->getPieces().at(i)->setCell(theBoard.at(1).at(i));
+    //     theBoard.at(1).at(i)->setPiece(p1->getPieces().at(i));
+    // }
+
+    // //creates pieces D,E & d,e
+    // // for(int i = 3; i < 5; i++){
+    // //     Piece * A = new Piece(i+65, false, 0, false);
+    // //     A->setBoard(this);
+    // //     A->setCell(theBoard.at(6).at(i));
+    // //     theBoard.at(6).at(i)->setPiece(A);
+    // //     p2Pieces.emplace_back(A);
+
+    // //     Piece * a = new Piece(i+97, false, 0, false);
+    // //     a->setBoard(this);
+    // //     a->setCell(theBoard.at(1).at(i));
+    // //     theBoard.at(1).at(i)->setPiece(a);
+    // //     p1Pieces.emplace_back(a);
+    // // }
+
+    // for (int i = 5; i < 8; ++i) {
+    //     p2->getPieces().at(i)->setBoard(this);
+    //     p2->getPieces().at(i)->setCell(theBoard.at(7).at(i));
+    //     theBoard.at(7).at(i)->setPiece(p2->getPieces().at(i));
+
+    //     p1->getPieces().at(i)->setBoard(this);
+    //     p1->getPieces().at(i)->setCell(theBoard.at(0).at(i));
+    //     theBoard.at(0).at(i)->setPiece(p1->getPieces().at(i));
+    // }
 
     //creates pieces F,G,H & f,g,h
-    for(int i = 5; i < 8; i++){
-        Piece * A = new Piece(i+65, false, 0, false);
-        A->setBoard(this);
-        A->setCell(theBoard.at(7).at(i));
-        theBoard.at(7).at(i)->setPiece(A);
-        p2Pieces.emplace_back(A);
+    // for(int i = 5; i < 8; i++){
+    //     Piece * A = new Piece(i+65, false, 0, false);
+    //     A->setBoard(this);
+    //     A->setCell(theBoard.at(7).at(i));
+    //     theBoard.at(7).at(i)->setPiece(A);
+    //     p2Pieces.emplace_back(A);
 
-        Piece * a = new Piece(i+97, false, 0, false);
-        a->setBoard(this);
-        a->setCell(theBoard.at(0).at(i));
-        theBoard.at(0).at(i)->setPiece(a);
-        p1Pieces.emplace_back(a);
-    }
+    //     Piece * a = new Piece(i+97, false, 0, false);
+    //     a->setBoard(this);
+    //     a->setCell(theBoard.at(0).at(i));
+    //     theBoard.at(0).at(i)->setPiece(a);
+    //     p1Pieces.emplace_back(a);
+    // }
 }
 char Board::getState(int row, int col) const {
     Cell *current = theBoard.at(row).at(col);
@@ -75,10 +109,10 @@ char Board::getState(int row, int col) const {
         return current->getPiece()->getName();
     }
     int fw = current->isFirewall();
-    if (fw==1){
+    if (fw == 1) {
         return 'm';
     }
-    if (fw==2){
+    if (fw == 2) {
         return 'w';
     }
     if (current->isServer()){
@@ -89,10 +123,10 @@ char Board::getState(int row, int col) const {
 
 void Board::movePiece(char name, string direction){
     Piece * currentPiece = nullptr;
-    if(name >= 65 && name <= 72){
-        currentPiece = p2Pieces.at(name - 65);
+    if(name >= 65 && name <= 72) {
+        currentPiece = p2->getPieces().at(name - 65);
     } else if (name >= 97 && name <= 104){
-        currentPiece = p1Pieces.at(name - 97);
+        currentPiece = p1->getPieces().at(name - 97);
     } else {
         return;
     }

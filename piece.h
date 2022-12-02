@@ -15,9 +15,10 @@ class Piece {
     char name;
     bool isVirus;
     int strength;
-    bool playerNum;
+    int playerNum;
+    bool isVisible;
     public:
-        Piece(char n, bool vir, int str, bool player);
+        Piece(char n, bool vir, int str, int player);
         char getName() const;
         bool playerTwo() const;
         void setBoard(Board * b);
