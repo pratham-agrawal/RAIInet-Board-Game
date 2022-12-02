@@ -26,81 +26,30 @@ void Board::basic_setup() {
     theBoard.at(7).at(3)->setServer(2);
     theBoard.at(7).at(4)->setServer(2);
 
-    for (int i = 0; i < 3; ++i) {
-        p2->getPieces().at(i)->setBoard(this);
-        p2->getPieces().at(i)->setCell(theBoard.at(7).at(i));
-        theBoard.at(7).at(i)->setPiece(p2->getPieces().at(i));
+    for (int i = 0; i < 8; ++i) {
+        int top = 0;
+        int bottom = 7;
+        if (i > 2 && i < 5) {
+            top = 1;
+            bottom = 6;
+        }
 
         p1->getPieces().at(i)->setBoard(this);
-        p1->getPieces().at(i)->setCell(theBoard.at(0).at(i));
-        theBoard.at(0).at(i)->setPiece(p1->getPieces().at(i));
-    }
+        p1->getPieces().at(i)->setCell(theBoard.at(top).at(i));
+        p1->getPieces().at(i)->setRow(top);
+        p1->getPieces().at(i)->setCol(i);
+        theBoard.at(top).at(i)->setPiece(p1->getPieces().at(i));
 
-    // //creates pieces A,B,C & a,b,c
-    // // for(int i = 0; i < 3; i++){
-    // //     Piece * A = new Piece(i+65, false, 0, false);
-    // //     A->setBoard(this);
-    // //     A->setCell(theBoard.at(7).at(i));
-    // //     theBoard.at(7).at(i)->setPiece(A);
-    // //     p2Pieces.emplace_back(A);
-
-    // //     Piece * a = new Piece(i+97, false, 0, false);
-    // //     a->setBoard(this);
-    // //     a->setCell(theBoard.at(0).at(i));
-    // //     theBoard.at(0).at(i)->setPiece(a);
-    // //     p1Pieces.emplace_back(a);
-    // // }
-
-    for (int i = 3; i < 5; ++i) {
         p2->getPieces().at(i)->setBoard(this);
-        p2->getPieces().at(i)->setCell(theBoard.at(6).at(i));
-        theBoard.at(6).at(i)->setPiece(p2->getPieces().at(i));
-
-        p1->getPieces().at(i)->setBoard(this);
-        p1->getPieces().at(i)->setCell(theBoard.at(1).at(i));
-        theBoard.at(1).at(i)->setPiece(p1->getPieces().at(i));
+        p2->getPieces().at(i)->setCell(theBoard.at(bottom).at(i));
+        p2->getPieces().at(i)->setRow(bottom);
+        p2->getPieces().at(i)->setCol(i);
+        theBoard.at(bottom).at(i)->setPiece(p2->getPieces().at(i));
     }
-
-    // //creates pieces D,E & d,e
-    // // for(int i = 3; i < 5; i++){
-    // //     Piece * A = new Piece(i+65, false, 0, false);
-    // //     A->setBoard(this);
-    // //     A->setCell(theBoard.at(6).at(i));
-    // //     theBoard.at(6).at(i)->setPiece(A);
-    // //     p2Pieces.emplace_back(A);
-
-    // //     Piece * a = new Piece(i+97, false, 0, false);
-    // //     a->setBoard(this);
-    // //     a->setCell(theBoard.at(1).at(i));
-    // //     theBoard.at(1).at(i)->setPiece(a);
-    // //     p1Pieces.emplace_back(a);
-    // // }
-
-    for (int i = 5; i < 8; ++i) {
-        p2->getPieces().at(i)->setBoard(this);
-        p2->getPieces().at(i)->setCell(theBoard.at(7).at(i));
-        theBoard.at(7).at(i)->setPiece(p2->getPieces().at(i));
-
-        p1->getPieces().at(i)->setBoard(this);
-        p1->getPieces().at(i)->setCell(theBoard.at(0).at(i));
-        theBoard.at(0).at(i)->setPiece(p1->getPieces().at(i));
-    }
-
-    //creates pieces F,G,H & f,g,h
-    // for(int i = 5; i < 8; i++){
-    //     Piece * A = new Piece(i+65, false, 0, false);
-    //     A->setBoard(this);
-    //     A->setCell(theBoard.at(7).at(i));
-    //     theBoard.at(7).at(i)->setPiece(A);
-    //     p2Pieces.emplace_back(A);
-
-    //     Piece * a = new Piece(i+97, false, 0, false);
-    //     a->setBoard(this);
-    //     a->setCell(theBoard.at(0).at(i));
-    //     theBoard.at(0).at(i)->setPiece(a);
-    //     p1Pieces.emplace_back(a);
-    // }
 }
+
+
+
 char Board::getState(int row, int col) const {
     Cell *current = theBoard.at(row).at(col);
     if (current->hasPiece()){
@@ -120,46 +69,36 @@ char Board::getState(int row, int col) const {
 }
 
 void Board::movePiece(char name, string direction){
+    //Set player and piece
+    int player_num = 0;
     Piece * currentPiece = nullptr;
-    if(name >= 65 && name <= 72) {
+    Player * player = nullptr;
+    Player * opponent = nullptr;
+    
+    if(name >= 65 && name <= 72){
         currentPiece = p2->getPieces().at(name - 65);
+        player_num = 2;
+        player = p2;
+        opponent = p1;
     } else if (name >= 97 && name <= 104){
         currentPiece = p1->getPieces().at(name - 97);
+        player_num = 1;
+        player = p1;
+        opponent = p2;
     } else {
+        cout << "invalid piece" << endl;
         return;
     }
-    Cell * currentCell = currentPiece->getCell();
-    int row = currentCell->getRow();
-    int col = currentCell->getCol();
-    if (direction == "up"){
-        currentPiece->setCell(theBoard.at(row - 1).at(col));
-        theBoard.at(row - 1).at(col)->setPiece(currentPiece);
-    } else if (direction == "down"){
-        currentPiece->setCell(theBoard.at(row + 1).at(col));
-        theBoard.at(row + 1).at(col)->setPiece(currentPiece);
-    } else if (direction == "left"){
-        currentPiece->setCell(theBoard.at(row).at(col - 1));
-        theBoard.at(row).at(col - 1)->setPiece(currentPiece);
-    } else if (direction == "right"){
-        currentPiece->setCell(theBoard.at(row).at(col + 1));
-        theBoard.at(row).at(col + 1)->setPiece(currentPiece);
-    }
-    currentCell->setPiece(nullptr);
-    return;
-    /*
-    int player = 0;
-    Piece * currentPiece = nullptr;
-    if(name >= 65 && name <= 72){
-        currentPiece = p2.getPieces().at(name - 65);
-        player = 2;
-    } else if (name >= 97 && name <= 104){
-        currentPiece = p1.getPieces().at(name - 97);
-        player = 1;
-    } else {
-        return;
-    }
-    newX = piece.getRow();
-    newY = piece.getCol();
+
+    int oldX = currentPiece->getRow();
+    int oldY = currentPiece->getCol();
+
+    //Set target coordinates
+    int newX = oldX;
+    int newY = oldY;
+    //int newX = currentPiece->getRow();
+    //int newY = currentPiece->getCol();
+
     if (direction == "up") {
         newX --;
     }
@@ -172,39 +111,100 @@ void Board::movePiece(char name, string direction){
     else if (direction == "right") {
         newY ++;
     }
-    if (newX < 0 || newX > 7 || newY < 0 || newY > 7){
-        throw ();
-    }
-    Cell * targetCell = theBoard.at(newX).at(newY);
-    if (targetCell.hasPiece()){
-        if (targetCell.hasPiece() == player){
-            throw ();
+
+    //Check if moving off board
+    if ((player_num == 1 && newX == 8) || (player_num == 2 && newX == -1)){
+        cout << "Downloading own link" << endl;
+        //REVEAL?
+        if (currentPiece->Virus()){
+            player->downloadVirus();
         }
         else {
-            if (currentPiece.getStength() >= targetCell.getPiece().getStrength()){
-                //download the other piece;
-                //remove from player??
-                
+            player->downloadData();
+        }
+        theBoard.at(oldX).at(oldY)->setPiece(nullptr);
+        return;
+    }
+
+    if (newX < 0 || newX > 7 || newY < 0 || newY > 7){
+        cout << "Attempting to move off board" << endl;
+        return;
+        //throw ();
+    }
+
+    Cell * targetCell = theBoard.at(newX).at(newY);
+    
+    //Check if server
+    if (targetCell->isServer()){
+        if (targetCell->isServer() == player_num){
+            cout << "Attempting to move onto own server" << endl;
+            return;
+            //throw();
+        }
+        else {
+            cout << "Oponents server downloaded your link" << endl;
+            if (currentPiece->Virus()){
+                opponent->downloadVirus();
             }
             else {
-                // piece gets downloaded;
-                // remove from player;
+                opponent->downloadData();
+            }
+            theBoard.at(oldX).at(oldY)->setPiece(nullptr);
+            return;
+        }
+    }
+
+
+    //Check if moving to square with piece
+    if (targetCell->hasPiece()){
+        if (targetCell->hasPiece() == player_num){
+            cout << "Attempting to move to square with own piece" << endl;
+            return;
+            //throw ();
+        }
+        else {
+            if (currentPiece->getStrength() >= targetCell->getPiece()->getStrength()){
+                cout << "Your strength higher" << endl;
+                if (targetCell->getPiece()->Virus()){
+                    player->downloadVirus();
+                }
+                else {
+                    player->downloadData();
+                }
+                currentPiece->setVisibility(true);
+                targetCell->getPiece()->setVisibility(true);
+                //remove from player?? set downloaded to true??
+            }
+            else {
+                cout << "Your strength weaker" << endl;
+                if (currentPiece->Virus()){
+                    opponent->downloadVirus();
+                }
+                else {
+                    opponent->downloadData();
+                }
+                currentPiece->setVisibility(true);
+                targetCell->getPiece()->setVisibility(true);
+                theBoard.at(oldX).at(oldY)->setPiece(nullptr);
+                // remove from player?? set downloaded to true??
                 return;
             }
         }
     }
+    
     //move piece
-    if (targetCell.hasFirewall() && targetCell.hasFirewall() != player) {
-        //do firewall
-    }
-    if (targetCell.isServer()){
-        if (targetCell.isServer() == player){
-            throw();
-        }
-        else {
-            //download
+    targetCell->setPiece(currentPiece);
+    currentPiece->setRow(newX);
+    currentPiece->setCol(newY);
+    theBoard.at(oldX).at(oldY)->setPiece(nullptr);
+
+    //Check if firewall
+    if (targetCell->isFirewall() && targetCell->isFirewall() != player_num) {
+        currentPiece->setVisibility(true);
+        if (currentPiece->Virus()){
+            player->downloadVirus();
+            targetCell->setPiece(nullptr);
         }
     }
 
-    */
 }

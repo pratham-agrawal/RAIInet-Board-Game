@@ -5,9 +5,11 @@ Cell::Cell(int row, int col) : row{row}, col{col}, firewall{0}, server{0}, piece
 
 int Cell::hasPiece() const{
     if (piece == nullptr){
-        return false;
+        return 0;
     }
-    return true;
+    else {
+        return (piece->getPlayer());
+    }
 }
 
 

@@ -39,3 +39,18 @@ vector<Piece *> Player::getPieces() {
     return pieces;
 }
 
+void Player::downloadData(){
+    dataDownloaded++;
+}
+
+void Player::downloadVirus(){
+    virusDownloaded++;
+}
+
+int Player::getData(){
+    return dataDownloaded;
+}
+
+int Player::getVirus(){
+    return virusDownloaded;
+}

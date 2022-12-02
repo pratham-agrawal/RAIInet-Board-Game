@@ -11,6 +11,10 @@ std::string Piece::getLink() const {
     return link;
 }
 
+int Piece::getPlayer(){
+    return playerNum;
+}
+
 bool Piece::playerTwo() const{
     return playerNum - 1;
 }
@@ -37,4 +41,29 @@ int Piece::getStrength() {
 
 Cell* Piece::getCell(){
     return cell;
+}
+
+
+int Piece::getRow(){
+    return row;
+}
+
+int Piece::getCol(){
+    return col;
+}
+
+void Piece::setRow(int r){
+    row = r;
+}
+
+void Piece::setCol(int c){
+    col = c;
+}
+
+void Piece::setVisibility(bool vis){
+    isVisible = vis;
+}
+
+bool Piece::getVisibility(){
+    return isVisible;
 }
