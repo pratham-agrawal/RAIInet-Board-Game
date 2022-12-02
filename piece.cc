@@ -71,3 +71,7 @@ bool Piece::getVisibility(){
 string Piece::getLinkName(){
     return link;
 }
+
+void Piece::changeName(char newName) {
+    name = newName;
+}

@@ -39,6 +39,7 @@ class Piece {
         void setVisibility(bool vis);
         bool getVisibility();
         std::string getLinkName();
+        void changeName(char newName);
 };
 
 #endif
