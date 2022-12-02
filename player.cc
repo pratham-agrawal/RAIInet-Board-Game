@@ -24,6 +24,11 @@ Player::Player(): dataDownloaded{0}, virusDownloaded{0} {
 //     }
 // }
 
+void Player::addPiece(Piece *p) {
+    pieces.emplace_back(p);
+}
+
+
 Player::~Player() {
     // abilities.clear();
     pieces.clear();

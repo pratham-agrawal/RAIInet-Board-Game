@@ -60,8 +60,7 @@ void setupLinks(string file, Player *player, int playerNum) {
     }
     strength = int(token[1] - '0');
     Piece *p = new Piece(ascii, isVirus, strength, playerNum);
-    player->getPieces().emplace_back(p);
-    cout << player->getPieces().size() << endl;
+    player->addPiece(p);
     ++ascii;
   }
 }
@@ -88,19 +87,15 @@ void game_setup(int argc, char* argv[], Player *player1, Player *player2) {
       order = argv[cmd_line_arg];
     }
     else if (!strcmp(argv[cmd_line_arg], "-link1")) {
-      cout << "link 1" << endl;
       link1 = true;
       ++cmd_line_arg;
       placement_file = argv[cmd_line_arg];
-      cout << placement_file << endl;
       setupLinks(placement_file, player1, 1);
     }
     else if (!strcmp(argv[cmd_line_arg], "-link2")) {
-      cout << "link 2" << endl;
       link2 = true;
       ++cmd_line_arg;
       placement_file = argv[cmd_line_arg];
-      cout << placement_file << endl;
       setupLinks(placement_file, player2, 2);
     }
     else if (!strcmp(argv[cmd_line_arg], "-graphics")) {

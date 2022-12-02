@@ -14,6 +14,7 @@ class Player {
         Player();
         ~Player();
         std::vector<Piece *> getPieces();
+        void addPiece(Piece *p);
 };
 
 #endif

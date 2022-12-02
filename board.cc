@@ -25,18 +25,15 @@ void Board::basic_setup() {
     theBoard.at(7).at(3)->setServer(2);
     theBoard.at(7).at(4)->setServer(2);
 
-    cout << p1->getPieces().size() << endl;
-    cout << p2->getPieces().size() << endl;
+    for (int i = 0; i < 3; ++i) {
+        p2->getPieces().at(i)->setBoard(this);
+        p2->getPieces().at(i)->setCell(theBoard.at(7).at(i));
+        theBoard.at(7).at(i)->setPiece(p2->getPieces().at(i));
 
-    // for (int i = 0; i < 3; ++i) {
-    //     p2->getPieces().at(i)->setBoard(this);
-    //     p2->getPieces().at(i)->setCell(theBoard.at(7).at(i));
-    //     theBoard.at(7).at(i)->setPiece(p2->getPieces().at(i));
-
-    //     p1->getPieces().at(i)->setBoard(this);
-    //     p1->getPieces().at(i)->setCell(theBoard.at(0).at(i));
-    //     theBoard.at(0).at(i)->setPiece(p1->getPieces().at(i));
-    // }
+        p1->getPieces().at(i)->setBoard(this);
+        p1->getPieces().at(i)->setCell(theBoard.at(0).at(i));
+        theBoard.at(0).at(i)->setPiece(p1->getPieces().at(i));
+    }
 
     // //creates pieces A,B,C & a,b,c
     // // for(int i = 0; i < 3; i++){
@@ -53,15 +50,15 @@ void Board::basic_setup() {
     // //     p1Pieces.emplace_back(a);
     // // }
 
-    // for (int i = 3; i < 5; ++i) {
-    //     p2->getPieces().at(i)->setBoard(this);
-    //     p2->getPieces().at(i)->setCell(theBoard.at(6).at(i));
-    //     theBoard.at(6).at(i)->setPiece(p2->getPieces().at(i));
+    for (int i = 3; i < 5; ++i) {
+        p2->getPieces().at(i)->setBoard(this);
+        p2->getPieces().at(i)->setCell(theBoard.at(6).at(i));
+        theBoard.at(6).at(i)->setPiece(p2->getPieces().at(i));
 
-    //     p1->getPieces().at(i)->setBoard(this);
-    //     p1->getPieces().at(i)->setCell(theBoard.at(1).at(i));
-    //     theBoard.at(1).at(i)->setPiece(p1->getPieces().at(i));
-    // }
+        p1->getPieces().at(i)->setBoard(this);
+        p1->getPieces().at(i)->setCell(theBoard.at(1).at(i));
+        theBoard.at(1).at(i)->setPiece(p1->getPieces().at(i));
+    }
 
     // //creates pieces D,E & d,e
     // // for(int i = 3; i < 5; i++){
@@ -78,15 +75,15 @@ void Board::basic_setup() {
     // //     p1Pieces.emplace_back(a);
     // // }
 
-    // for (int i = 5; i < 8; ++i) {
-    //     p2->getPieces().at(i)->setBoard(this);
-    //     p2->getPieces().at(i)->setCell(theBoard.at(7).at(i));
-    //     theBoard.at(7).at(i)->setPiece(p2->getPieces().at(i));
+    for (int i = 5; i < 8; ++i) {
+        p2->getPieces().at(i)->setBoard(this);
+        p2->getPieces().at(i)->setCell(theBoard.at(7).at(i));
+        theBoard.at(7).at(i)->setPiece(p2->getPieces().at(i));
 
-    //     p1->getPieces().at(i)->setBoard(this);
-    //     p1->getPieces().at(i)->setCell(theBoard.at(0).at(i));
-    //     theBoard.at(0).at(i)->setPiece(p1->getPieces().at(i));
-    // }
+        p1->getPieces().at(i)->setBoard(this);
+        p1->getPieces().at(i)->setCell(theBoard.at(0).at(i));
+        theBoard.at(0).at(i)->setPiece(p1->getPieces().at(i));
+    }
 
     //creates pieces F,G,H & f,g,h
     // for(int i = 5; i < 8; i++){
