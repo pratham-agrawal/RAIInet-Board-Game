@@ -15,6 +15,10 @@ class Player {
         ~Player();
         std::vector<Piece *> getPieces();
         void addPiece(Piece *p);
+        void downloadData();
+        void downloadVirus();
+        int getData();
+        int getVirus();
 };
 
 #endif

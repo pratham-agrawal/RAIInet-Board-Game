@@ -18,6 +18,8 @@ class Piece {
     int strength;
     int playerNum;
     bool isVisible;
+    int row;
+    int col;
     public:
         Piece(char n, std::string link, bool vir, int str, int player);
         char getName() const;
@@ -29,6 +31,13 @@ class Piece {
         Cell* getCell();
         bool Virus() const;
         void setVirus(bool vir);
+        int getRow();
+        int getCol();
+        int getPlayer();
+        void setCol(int c);
+        void setRow(int r);
+        void setVisibility(bool vis);
+        bool getVisibility();
 };
 
 #endif

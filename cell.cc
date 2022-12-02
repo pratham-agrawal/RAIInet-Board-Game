@@ -1,13 +1,15 @@
 #include "cell.h"
 using namespace std;
 
-Cell::Cell(int row, int col) : row{row}, col{col}, firewall{0}, server{0} {}
+Cell::Cell(int row, int col) : row{row}, col{col}, firewall{0}, server{0}, piece{nullptr} {}
 
 int Cell::hasPiece() const{
     if (piece == nullptr){
-        return false;
+        return 0;
     }
-    return true;
+    else {
+        return (piece->getPlayer());
+    }
 }
 
 
