@@ -12,7 +12,8 @@ Board::Board(Player *player1, Player *player2): p1{player1}, p2{player2} {
         vector<Cell *> vect;
         theBoard.emplace_back(vect);
         for (int j=0; j<8; ++j) {
-            theBoard.at(i).emplace_back(new Cell(i,j));
+            Cell * temp = new Cell{i,j};
+            theBoard.at(i).emplace_back(temp);
 			theBoard.at(i).at(j)->setBoard(this);
 		}
 	}
@@ -145,4 +146,65 @@ void Board::movePiece(char name, string direction){
     }
     currentCell->setPiece(nullptr);
     return;
+    /*
+    int player = 0;
+    Piece * currentPiece = nullptr;
+    if(name >= 65 && name <= 72){
+        currentPiece = p2.getPieces().at(name - 65);
+        player = 2;
+    } else if (name >= 97 && name <= 104){
+        currentPiece = p1.getPieces().at(name - 97);
+        player = 1;
+    } else {
+        return;
+    }
+    newX = piece.getRow();
+    newY = piece.getCol();
+    if (direction == "up") {
+        newX --;
+    }
+    else if (direction == "down") {
+        newX ++;
+    }
+    else if (direction == "left") {
+        newY --;
+    }
+    else if (direction == "right") {
+        newY ++;
+    }
+    if (newX < 0 || newX > 7 || newY < 0 || newY > 7){
+        throw ();
+    }
+    Cell * targetCell = theBoard.at(newX).at(newY);
+    if (targetCell.hasPiece()){
+        if (targetCell.hasPiece() == player){
+            throw ();
+        }
+        else {
+            if (currentPiece.getStength() >= targetCell.getPiece().getStrength()){
+                //download the other piece;
+                //remove from player??
+                
+            }
+            else {
+                // piece gets downloaded;
+                // remove from player;
+                return;
+            }
+        }
+    }
+    //move piece
+    if (targetCell.hasFirewall() && targetCell.hasFirewall() != player) {
+        //do firewall
+    }
+    if (targetCell.isServer()){
+        if (targetCell.isServer() == player){
+            throw();
+        }
+        else {
+            //download
+        }
+    }
+
+    */
 }
