@@ -10,8 +10,8 @@ class Board;
 class Cell;
 
 class Piece {
-    Board * b;
-    Cell * cell;
+    //Board * b;
+    //Cell * cell;
     char name;
     std::string link;
     bool isVirus;
@@ -25,10 +25,10 @@ class Piece {
         char getName() const;
         std::string getLink() const;
         bool playerTwo() const;
-        void setBoard(Board * b);
-        void setCell(Cell * c);
+        //void setBoard(Board * b);
+        //void setCell(Cell * c);
         int getStrength();
-        Cell* getCell();
+        //Cell* getCell();
         bool Virus() const;
         void setVirus(bool vir);
         int getRow();

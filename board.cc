@@ -34,14 +34,14 @@ void Board::basic_setup() {
             bottom = 6;
         }
 
-        p1->getPieces().at(i)->setBoard(this);
-        p1->getPieces().at(i)->setCell(theBoard.at(top).at(i));
+        //p1->getPieces().at(i)->setBoard(this);
+        //p1->getPieces().at(i)->setCell(theBoard.at(top).at(i));
         p1->getPieces().at(i)->setRow(top);
         p1->getPieces().at(i)->setCol(i);
         theBoard.at(top).at(i)->setPiece(p1->getPieces().at(i));
 
-        p2->getPieces().at(i)->setBoard(this);
-        p2->getPieces().at(i)->setCell(theBoard.at(bottom).at(i));
+        //p2->getPieces().at(i)->setBoard(this);
+        //p2->getPieces().at(i)->setCell(theBoard.at(bottom).at(i));
         p2->getPieces().at(i)->setRow(bottom);
         p2->getPieces().at(i)->setCol(i);
         theBoard.at(bottom).at(i)->setPiece(p2->getPieces().at(i));
