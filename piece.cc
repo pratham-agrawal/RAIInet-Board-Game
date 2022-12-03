@@ -62,6 +62,8 @@ string Piece::getLinkName(){
     return link;
 }
 
+
+
 /*
 void Piece::setBoard(Board * b){
     b = b;
@@ -73,5 +75,13 @@ void Piece::setCell(Cell * c){
 
 Cell* Piece::getCell(){
     return cell;
+}
+
+void Piece::flipReveled(){
+    isRevealed = !(isRevealed);
+}
+
+bool Piece::getRevealed(){
+    return isRevealed;
 }
 */
