@@ -27,20 +27,10 @@ void Piece::setVirus(bool vir){
     isVirus = vir;
 }
 
-void Piece::setBoard(Board * b){
-    b = b;
-}
 
-void Piece::setCell(Cell * c){
-    cell = c;
-}
 
 int Piece::getStrength() {
     return strength;
-}
-
-Cell* Piece::getCell(){
-    return cell;
 }
 
 
@@ -71,3 +61,17 @@ bool Piece::getVisibility(){
 string Piece::getLinkName(){
     return link;
 }
+
+/*
+void Piece::setBoard(Board * b){
+    b = b;
+}
+
+void Piece::setCell(Cell * c){
+    cell = c;
+}
+
+Cell* Piece::getCell(){
+    return cell;
+}
+*/
