@@ -98,18 +98,22 @@ bool Board::movePiece(char name, string direction){
     int newY = oldY;
     //int newX = currentPiece->getRow();
     //int newY = currentPiece->getCol();
-
+    int moveAmount = 1 + currentPiece->getBoosted();
     if (direction == "up") {
-        newX --;
+        //newX --;
+        newX -= moveAmount;
     }
     else if (direction == "down") {
-        newX ++;
+        //newX ++;
+        newX += moveAmount;
     }
     else if (direction == "left") {
-        newY --;
+        //newY --;
+        newY -= moveAmount;
     }
     else if (direction == "right") {
-        newY ++;
+        //newY ++;
+        newY += moveAmount;
     }
 
     //Check if moving off board

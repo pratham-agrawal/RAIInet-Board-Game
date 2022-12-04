@@ -12,8 +12,8 @@ class Cell {
     int row, col;
     Board * theBoard;
     Piece * piece;
-    int server = 0;
-    int firewall = 0;
+    int server;
+    int firewall;
     public:
         Cell(int row, int col);
         int hasPiece() const;
