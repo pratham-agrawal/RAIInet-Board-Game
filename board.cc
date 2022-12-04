@@ -172,6 +172,11 @@ bool Board::movePiece(char name, string direction){
         return false;
     }
 
+    if (currentPiece->getDownloaded()){
+        cout << "Piece not on board" << endl;
+        return false;
+    }
+
     int oldX = currentPiece->getRow();
     int oldY = currentPiece->getCol();
 
@@ -181,6 +186,7 @@ bool Board::movePiece(char name, string direction){
     //int newX = currentPiece->getRow();
     //int newY = currentPiece->getCol();
     int moveAmount = 1 + currentPiece->getBoosted();
+    //cout << currentPiece->getBoosted() << moveAmount << endl;
     if (direction == "up") {
         //newX --;
         newX -= moveAmount;
@@ -197,6 +203,10 @@ bool Board::movePiece(char name, string direction){
         //newY ++;
         newY += moveAmount;
     }
+    else {
+        cout << "Invalid direction" << endl;
+        return false;
+    }
 
     //Check if moving off board
     if ((player_num == 1 && newX == 8) || (player_num == 2 && newX == -1)){
@@ -208,6 +218,7 @@ bool Board::movePiece(char name, string direction){
         else {
             player->downloadData();
         }
+        currentPiece->setDownloaded(true);
         theBoard.at(oldX).at(oldY)->setPiece(nullptr);
         return true;
     }
@@ -235,6 +246,7 @@ bool Board::movePiece(char name, string direction){
             else {
                 opponent->downloadData();
             }
+            currentPiece->setDownloaded(true);
             theBoard.at(oldX).at(oldY)->setPiece(nullptr);
             return true;
         }
@@ -259,7 +271,8 @@ bool Board::movePiece(char name, string direction){
                 }
                 currentPiece->setVisibility(true);
                 targetCell->getPiece()->setVisibility(true);
-                return true;
+                targetCell->getPiece()->setDownloaded(true);
+                targetCell->setPiece(nullptr);
                 //remove from player?? set downloaded to true??
             }
             else {
@@ -290,6 +303,7 @@ bool Board::movePiece(char name, string direction){
         currentPiece->setVisibility(true);
         if (currentPiece->virus()){
             player->downloadVirus();
+            targetCell->getPiece()->setDownloaded(true);
             targetCell->setPiece(nullptr);
         }
     }
@@ -310,4 +324,8 @@ int Board::getPlayerTurn(){
 
 void Board::setTurn(int turn){
     playerTurn = turn;
+}
+
+void Board::displayBoard(){
+    notifyObservers();
 }

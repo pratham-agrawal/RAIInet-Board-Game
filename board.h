@@ -24,6 +24,7 @@ class Board: public Subject{
         int getPlayerTurn();
         void setTurn(int turn);
         bool useAbility(int ability, int playerNum);
+        void displayBoard();
         //void removePiece(p: *Piece);
 };
 

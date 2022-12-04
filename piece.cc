@@ -1,7 +1,7 @@
 #include "piece.h"
 using namespace std;
 
-Piece::Piece(char n, string link, bool vir, int str, int player): name{n}, link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false}, isBoosted{false} {}
+Piece::Piece(char n, string link, bool vir, int str, int player): name{n}, link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false}, isBoosted{false}, isDownloaded{false} {}
 
 char Piece::getName() const{
     return name;
@@ -17,6 +17,14 @@ int Piece::getPlayer(){
 
 bool Piece::playerTwo() const{
     return playerNum - 1;
+}
+
+bool Piece::getDownloaded(){
+    return isDownloaded;
+}
+
+void Piece::setDownloaded(bool d){
+    isDownloaded = d;
 }
 
 bool Piece::virus() const{
@@ -79,29 +87,3 @@ void Piece::setBoosted(bool val){
     isBoosted = val;
 }
 
-
-
-/*
-void Piece::setBoard(Board * b){
-    b = b;
-}
-
-void Piece::setCell(Cell * c){
-    cell = c;
-}
-
-Cell* Piece::getCell(){
-    return cell;
-}
-
-void Piece::flipReveled(){
-    isRevealed = !(isRevealed);
-}
-
-bool Piece::getRevealed(){
-    return isRevealed;
-}
-*/
-void Piece::changeName(char newName) {
-    name = newName;
-}
