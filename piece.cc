@@ -62,6 +62,9 @@ string Piece::getLinkName(){
     return link;
 }
 
+void Piece::changeName(char newName) {
+    name = newName;
+}
 int Piece::getBoosted(){
     return isBoosted;
 }

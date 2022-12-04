@@ -3,6 +3,8 @@
 #include <iostream>
 #include "player.h"
 #include "piece.h"
+#include <algorithm>
+#include <random>
 using namespace std;
 
 Player::Player(): dataDownloaded{0}, virusDownloaded{0} {
@@ -59,3 +61,21 @@ int Player::getVirus(){
 vector<char> Player::getAbilities(){
     return abilities;
 }
+
+void Player::shufflePieces(int playerNum) {
+    shuffle(pieces.begin(), pieces.end(), random_device());
+    char ascii;
+    if (playerNum == 1) {
+        ascii = 'a';
+    }
+    else {
+        ascii = 'A';
+    }
+    for (int i = 0; i < 8; ++i) {
+        pieces.at(i)->changeName(ascii + i);
+    }
+}
+
+
+
+

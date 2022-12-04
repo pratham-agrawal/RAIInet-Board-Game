@@ -21,6 +21,7 @@ class Player {
         int getData();
         int getVirus();
         std::vector<char> getAbilities();
+        void shufflePieces(int playerNum);
 };
 
 #endif
