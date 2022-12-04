@@ -62,7 +62,7 @@ string Piece::getLinkName(){
     return link;
 }
 
-int Piece::getBoosted(){
+bool Piece::getBoosted(){
     return isBoosted;
 }
 

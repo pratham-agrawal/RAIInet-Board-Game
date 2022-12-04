@@ -99,6 +99,7 @@ bool Board::movePiece(char name, string direction){
     //int newX = currentPiece->getRow();
     //int newY = currentPiece->getCol();
     int moveAmount = 1 + currentPiece->getBoosted();
+    //cout << currentPiece->getBoosted() << moveAmount << endl;
     if (direction == "up") {
         //newX --;
         newX -= moveAmount;
