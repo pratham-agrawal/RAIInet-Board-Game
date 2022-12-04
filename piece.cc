@@ -79,7 +79,7 @@ string Piece::getLinkName(){
 void Piece::changeName(char newName) {
     name = newName;
 }
-int Piece::getBoosted(){
+bool Piece::getBoosted(){
     return isBoosted;
 }
 
