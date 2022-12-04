@@ -5,41 +5,31 @@
 #include "piece.h"
 #include <algorithm>
 #include <random>
+#include <cstring>
 using namespace std;
 
 Player::Player(): dataDownloaded{0}, virusDownloaded{0} {
     vector<Piece *> pieces;
     vector<char> abilities;
+    vector<char> usedAbilities;
 }
-
-// void Player::setPieces(int playerNum) {
-//     string token;
-//     bool isVirus = false;
-//     int strength;
-//     for (char i = 'a'; i <= 'h'; ++i) {
-//         token = myPieces.at(i);
-//         if (token[0] == 'v' || token[0] == 'V') {
-//             isVirus = true;
-//         }
-//         strength = int(token[1] - '0');
-//         Piece *p = new Piece(i, isVirus, strength, playerNum);
-//         pieces.emplace_back(p);
-//     }
-// }
 
 void Player::addPiece(Piece *p) {
     pieces.emplace_back(p);
 }
 
-
 Player::~Player() {
-    // abilities.clear();
+    abilities.clear();
     pieces.clear();
     cout << "Player deleted: " << endl;
 }
 
 vector<Piece *> Player::getPieces() {
     return pieces;
+}
+
+vector<Ability *> Player::getAbilities() {
+    return abilities;
 }
 
 void Player::downloadData(){
@@ -58,10 +48,6 @@ int Player::getVirus(){
     return virusDownloaded;
 }
 
-vector<char> Player::getAbilities(){
-    return abilities;
-}
-
 void Player::shufflePieces(int playerNum) {
     shuffle(pieces.begin(), pieces.end(), random_device());
     char ascii;
@@ -76,6 +62,61 @@ void Player::shufflePieces(int playerNum) {
     }
 }
 
+void Player::addAbility(string ability, int id) {
+    Ability *a = new Ability(ability, id);
+    abilities.push_back(a);
+}
 
+int Player::abilityCount() {
+    int count = 5;
+    for (int i = 0; i < 5; ++i) {
+        if (abilities.at(i)->used()) {
+            --count;
+        }
+    }
+    return count;
+}
 
+void Player::printAbilities() {
+    for (int i = 0; i < 5; ++i) {
+        cout << "ID: " << abilities.at(i)->getId() << endl;
+        cout << "Ability: " << abilities.at(i)->getAbility() << endl;
+        bool used = abilities.at(i)->used();
+        if (used) {
+            cout << "This ability card has been used." << endl;
+        }
+        else {
+            cout << "This ability card has not yet been used." << endl;
+        }
+    }
+}
+
+void Player::useAbility(int ability) {
+    char token;
+    string name = abilities.at(ability - 1)->getAbility();
+    if (!name.compare("Linkboost")) {
+        cin >> token;
+        int index = 0;
+        while (index < 5) {
+            if (pieces.at(index)->getName() == token) {
+                break;
+            }
+            ++index;
+        }
+        pieces.at(index)->setBoosted(true);
+    }
+    else if (!name.compare("Firewall")) {
+        //firewall
+    }
+    else if (!name.compare("Download")) {
+        //download
+    }
+    else if (!name.compare("Scan")) {
+        //scan
+    }
+    else if (!name.compare("Polarize")) {
+        //polarize
+    }
+    abilities.at(ability - 1)->usedAbility();
+}
 

@@ -4,24 +4,30 @@
 #include <vector>
 #include <map>
 #include "piece.h"
+#include "ability.h"
 #include <iostream>
+#include <cstring>
 
 class Player {
     std::vector<Piece *> pieces;
     int dataDownloaded;
     int virusDownloaded;
-    std::vector<char> abilities;
+    std::vector<Ability *> abilities;
     public:
         Player();
         ~Player();
         std::vector<Piece *> getPieces();
+        std::vector<Ability *> getAbilities();
+        int abilityCount();
         void addPiece(Piece *p);
         void downloadData();
         void downloadVirus();
         int getData();
         int getVirus();
-        std::vector<char> getAbilities();
+        void addAbility(std::string ability, int id);
+        void useAbility(int ability);
         void shufflePieces(int playerNum);
+        void printAbilities();
 };
 
 #endif
