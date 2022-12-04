@@ -41,7 +41,8 @@ class Piece {
         void setVisibility(bool vis);
         bool getVisibility();
         std::string getLinkName();
-        bool getBoosted();
+        void changeName(char newName);
+        int getBoosted();
         void setBoosted(bool val);
         //bool flipRevealed();
         //bool getRevealed();

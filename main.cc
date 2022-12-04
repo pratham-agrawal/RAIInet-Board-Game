@@ -10,6 +10,8 @@
 #include "cell.h"
 #include <cstring>
 #include "piece.h"
+#include <random>
+#include <algorithm>
 using namespace std;
 
 bool readFromFile(string file) {
@@ -112,10 +114,36 @@ void game_setup(int argc, char* argv[], Player *player1, Player *player2) {
     order = "LFDSP";
   }
   if (!link1) {
-    // string random = randomize();
+    bool isVirus = false;
+    char ascii = 'a';
+    string token;
+    vector<string> links = {"D1", "D2", "D3", "D4", "V1", "V2", "V3", "V4"};
+    for (int j = 0; j < 4; ++j) {
+      Piece *p = new Piece(ascii + j, links.at(j), isVirus, j + 1, 1);
+      player1->addPiece(p);
+    }
+    isVirus = true;
+    for (int i = 4; i < 8; ++i) {
+      Piece *p = new Piece(ascii + i, links.at(i), isVirus, i - 3, 1);
+      player1->addPiece(p);
+    }
+    player1->shufflePieces(1);
   }
   if (!link2) {
-    // string random = randomize();
+    bool isVirus = false;
+    char ascii = 'A';
+    string token;
+    vector<string> links = {"D1", "D2", "D3", "D4", "V1", "V2", "V3", "V4"};
+    for (int j = 0; j < 4; ++j) {
+      Piece *p = new Piece(ascii + j, links.at(j), isVirus, j + 1, 2);
+      player2->addPiece(p);
+    }
+    isVirus = true;
+    for (int i = 4; i < 8; ++i) {
+      Piece *p = new Piece(ascii + i, links.at(i), isVirus, i - 3, 2);
+      player2->addPiece(p);
+    }
+    player2->shufflePieces(2);
   }
 }
 

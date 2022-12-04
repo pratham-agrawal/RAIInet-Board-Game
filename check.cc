@@ -1,7 +1,12 @@
 #include <iostream>
-
+#include <string>
+using namespace std;
 int main() {
-    char a = '2';
-    int b = int(a - '0');
-    std::cout << b << std::endl;
+    char a = 'a';
+    for (int i = 0; i < 8; ++i) {
+        a = a + i;
+        std::cout << a << std::endl;
+        a = 'a';
+    }
+    
 }
