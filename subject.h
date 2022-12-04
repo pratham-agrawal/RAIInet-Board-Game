@@ -7,15 +7,6 @@ class Observer;
 
 class Subject {
   std::vector<Observer*> observers;
-<<<<<<< HEAD
-  protected:
-    void notifyObservers();
-  public:
-    void attach(Observer *o);
-    void detach(Observer *o);
-    virtual char getState(int row, int col) const = 0;
-    virtual ~Subject() = default;
-=======
  protected:
   void notifyObservers();
  public:

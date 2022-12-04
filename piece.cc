@@ -96,3 +96,12 @@ void Piece::setDownloaded(bool d){
     isDownloaded = d;
 }
 
+/*
+void Piece::setBoard(Board * b){
+    b = b;
+}
+
+void Piece::setDownloaded(bool d){
+    isDownloaded = d;
+}
+
