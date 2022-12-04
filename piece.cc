@@ -1,7 +1,7 @@
 #include "piece.h"
 using namespace std;
 
-Piece::Piece(char n, string link, bool vir, int str, int player): name{n},  link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false} {}
+Piece::Piece(char n, string link, bool vir, int str, int player): name{n},  link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false}, isBoosted{false}{}
 
 char Piece::getName() const{
     return name;
@@ -60,6 +60,14 @@ bool Piece::getVisibility(){
 
 string Piece::getLinkName(){
     return link;
+}
+
+int Piece::getBoosted(){
+    return isBoosted;
+}
+
+void Piece::setBoosted(bool val){
+    isBoosted = val;
 }
 
 

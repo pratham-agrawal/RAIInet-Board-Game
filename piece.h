@@ -20,6 +20,7 @@ class Piece {
     bool isVisible;
     int row;
     int col;
+    bool isBoosted;
     //bool isRevealed; // if revealed then true
     public:
         Piece(char n, std::string link, bool vir, int str, int player);
@@ -40,6 +41,8 @@ class Piece {
         void setVisibility(bool vis);
         bool getVisibility();
         std::string getLinkName();
+        int getBoosted();
+        void setBoosted(bool val);
         //bool flipRevealed();
         //bool getRevealed();
 };
