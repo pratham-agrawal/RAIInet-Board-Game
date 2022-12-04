@@ -21,6 +21,7 @@ class Piece {
     int row;
     int col;
     bool isBoosted;
+    bool isDownloaded;
     //bool isRevealed; // if revealed then true
     public:
         Piece(char n, std::string link, bool vir, int str, int player);
@@ -44,6 +45,8 @@ class Piece {
         void changeName(char newName);
         int getBoosted();
         void setBoosted(bool val);
+        bool getDownloaded();
+        void setDownloaded(bool d);
         //bool flipRevealed();
         //bool getRevealed();
 };

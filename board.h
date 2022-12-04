@@ -23,6 +23,7 @@ class Board: public Subject{
         Player* getP2();
         int getPlayerTurn();
         void setTurn(int turn);
+        void displayBoard();
         //void removePiece(p: *Piece);
 };
 

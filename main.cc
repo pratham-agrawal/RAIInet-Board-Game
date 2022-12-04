@@ -184,7 +184,7 @@ int main (int argc, char* argv[]) {
     }
     else if (command == "board") {
       //cout << "Here is the board: " << endl;
-      text->notify();
+      b->displayBoard();
     }
     else if (command == "sequence") {
       ended = false;
