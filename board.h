@@ -23,7 +23,10 @@ class Board: public Subject{
         Player* getP2();
         int getPlayerTurn();
         void setTurn(int turn);
+<<<<<<< HEAD
         bool useAbility(int ability, int playerNum);
+=======
+>>>>>>> a4d1ffc (movement bug fixes)
         void displayBoard();
         //void removePiece(p: *Piece);
 };
