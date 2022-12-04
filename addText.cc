@@ -21,7 +21,7 @@ void addText::notify() {
   cout << "Abilities: " << p1->getAbilities().size() << endl;
   for (int i = 0; i < 8; i++){
     cout << char(i+97) << ": ";
-    if(subject->getPlayerTurn() == 1){ 
+    if(subject->getPlayerTurn() == 1 || p1->getPieces().at(i)->getVisibility()){ 
       cout << p1->getPieces().at(i)->getLinkName();
     } else{
       cout << '?';
@@ -47,7 +47,7 @@ void addText::notify() {
   cout << "Abilities: " << p2->getAbilities().size() << endl;
   for (int i = 0; i < 8; i++){
     cout << char(i+65) << ": ";
-    if(subject->getPlayerTurn() == 2){ 
+    if(subject->getPlayerTurn() == 2 || p2->getPieces().at(i)->getVisibility()){ 
       cout << p2->getPieces().at(i)->getLinkName();
     } else{
       cout << '?';

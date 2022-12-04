@@ -34,14 +34,14 @@ void Board::basic_setup() {
             bottom = 6;
         }
 
-        p1->getPieces().at(i)->setBoard(this);
-        p1->getPieces().at(i)->setCell(theBoard.at(top).at(i));
+        //p1->getPieces().at(i)->setBoard(this);
+        //p1->getPieces().at(i)->setCell(theBoard.at(top).at(i));
         p1->getPieces().at(i)->setRow(top);
         p1->getPieces().at(i)->setCol(i);
         theBoard.at(top).at(i)->setPiece(p1->getPieces().at(i));
 
-        p2->getPieces().at(i)->setBoard(this);
-        p2->getPieces().at(i)->setCell(theBoard.at(bottom).at(i));
+        //p2->getPieces().at(i)->setBoard(this);
+        //p2->getPieces().at(i)->setCell(theBoard.at(bottom).at(i));
         p2->getPieces().at(i)->setRow(bottom);
         p2->getPieces().at(i)->setCol(i);
         theBoard.at(bottom).at(i)->setPiece(p2->getPieces().at(i));
@@ -98,18 +98,22 @@ bool Board::movePiece(char name, string direction){
     int newY = oldY;
     //int newX = currentPiece->getRow();
     //int newY = currentPiece->getCol();
-
+    int moveAmount = 1 + currentPiece->getBoosted();
     if (direction == "up") {
-        newX --;
+        //newX --;
+        newX -= moveAmount;
     }
     else if (direction == "down") {
-        newX ++;
+        //newX ++;
+        newX += moveAmount;
     }
     else if (direction == "left") {
-        newY --;
+        //newY --;
+        newY -= moveAmount;
     }
     else if (direction == "right") {
-        newY ++;
+        //newY ++;
+        newY += moveAmount;
     }
 
     //Check if moving off board

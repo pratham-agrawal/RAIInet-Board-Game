@@ -10,8 +10,8 @@ class Board;
 class Cell;
 
 class Piece {
-    Board * b;
-    Cell * cell;
+    //Board * b;
+    //Cell * cell;
     char name;
     std::string link;
     bool isVirus;
@@ -20,15 +20,17 @@ class Piece {
     bool isVisible;
     int row;
     int col;
+    bool isBoosted;
+    //bool isRevealed; // if revealed then true
     public:
         Piece(char n, std::string link, bool vir, int str, int player);
         char getName() const;
         std::string getLink() const;
         bool playerTwo() const;
-        void setBoard(Board * b);
-        void setCell(Cell * c);
+        //void setBoard(Board * b);
+        //void setCell(Cell * c);
         int getStrength();
-        Cell* getCell();
+        //Cell* getCell();
         bool Virus() const;
         void setVirus(bool vir);
         int getRow();
@@ -40,6 +42,10 @@ class Piece {
         bool getVisibility();
         std::string getLinkName();
         void changeName(char newName);
+        int getBoosted();
+        void setBoosted(bool val);
+        //bool flipRevealed();
+        //bool getRevealed();
 };
 
 #endif
