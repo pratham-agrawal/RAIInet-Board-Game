@@ -20,6 +20,7 @@ addGraphics::~addGraphics() {
 }
 
 void addGraphics::notify() {
+  window->fillRectangle(0, 0, 700, 850, 0);
   shared_ptr<Player> p1 = subject->getP1();
   shared_ptr<Player> p2 = subject->getP2();
   window->drawString(20, 20, "Player 1:");
@@ -57,6 +58,27 @@ void addGraphics::notify() {
         window->fillRectangle(locationX + x*140, locationY + i*70, 70, 70, 9);
     }
   }
+
+  locationX = 35;
+  locationY = 135;
+
+  for (int i = 0; i < 8; i++){
+    for (int x = 0; x < 8; x++){
+      char current = subject->getState(i,x);
+      if (current == '.') continue;
+      else if(current == 'm'){
+        window->fillRectangle(locationX + x*70, locationY + i*70, 40, 40, 7);
+      } else if(current == 'w'){
+        window->fillRectangle(locationX + x*70, locationY + i*70, 40, 40, 8);
+      } else if(current == 's'){
+        window->fillRectangle(locationX + x*70, locationY + i*70, 40, 40, 1);
+      } else if(current >= 65 && current <= 72){
+        window->fillRectangle(locationX + x*70, locationY + i*70, 40, 40, 2);
+      } else{
+        window->fillRectangle(locationX + x*70, locationY + i*70, 40, 40, 4);
+      }
+      }
+    }
 
   window->drawString(20, 700, "Player 2:");
   window->drawString(20, 720, "Downloaded: " + to_string(p2->getData()) + "D, " + to_string(p2->getVirus()) + "V");
