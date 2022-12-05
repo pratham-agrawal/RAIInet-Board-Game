@@ -28,6 +28,7 @@ class Board: public Subject{
 =======
 >>>>>>> a4d1ffc (movement bug fixes)
         void displayBoard();
+        bool useAbility(int ability, int playerNum);
         //void removePiece(p: *Piece);
 };
 

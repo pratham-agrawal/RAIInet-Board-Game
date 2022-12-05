@@ -102,32 +102,4 @@ void Player::printAbilities() {
     }
 }
 
-void Player::useAbility(int ability) {
-    char token;
-    string name = abilities.at(ability - 1)->getAbility();
-    if (!name.compare("Linkboost")) {
-        cin >> token;
-        int index = 0;
-        while (index < 5) {
-            if (pieces.at(index)->getName() == token) {
-                break;
-            }
-            ++index;
-        }
-        pieces.at(index)->setBoosted(true);
-    }
-    else if (!name.compare("Firewall")) {
-        //firewall
-    }
-    else if (!name.compare("Download")) {
-        //download
-    }
-    else if (!name.compare("Scan")) {
-        //scan
-    }
-    else if (!name.compare("Polarize")) {
-        //polarize
-    }
-    abilities.at(ability - 1)->usedAbility();
-}
 
