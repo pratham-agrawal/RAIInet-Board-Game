@@ -236,19 +236,11 @@ int main (int argc, char* argv[]) {
       int ability;
       std::cin >> ability;
       cout << "Executing ability: " << ability << endl;
-      if (b->getPlayerTurn() == 1) {
-        if (!b->useAbility(ability, 1)) {
-          cout << "Invalid Input: Please Try Again" << endl;
-        }
-      }
-      else {
-        if (!b->useAbility(ability, 2)) {
-          cout << "Invalid Input: Please Try Again" << endl;
-        }
+      if (!b->useAbility(ability, b->getPlayerTurn())) {
+        cout << "Invalid Input: Please Try Again" << endl;
       }
     }
     else if (command == "board") {
-      //cout << "Here is the board: " << endl;
       b->displayBoard();
     }
     else if (command == "sequence") {
