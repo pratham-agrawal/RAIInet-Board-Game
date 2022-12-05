@@ -10,8 +10,8 @@ class Piece;
 
 class Cell {
     int row, col;
-    Board * theBoard;
-    Piece * piece;
+    std::shared_ptr <Board> theBoard;
+    std::shared_ptr <Piece> piece;
     int server;
     int firewall;
     public:
@@ -21,11 +21,11 @@ class Cell {
         int isServer() const;
         int getRow();
         int getCol();
-        Piece* getPiece();
-        void setBoard(Board * b);
+        std::shared_ptr <Piece> getPiece();
+        void setBoard(std::shared_ptr <Board> b);
         void setFirewall(int x);
         void setServer(int x);
-        void setPiece(Piece *p);
+        void setPiece(std::shared_ptr <Piece> p);
 };
 
 #endif

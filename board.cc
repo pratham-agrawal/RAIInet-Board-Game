@@ -6,15 +6,16 @@
 #include "piece.h"
 using namespace std;
 
-Board::Board(Player *player1, Player *player2, int playT): p1{player1}, p2{player2}, playerTurn{playT} {
+Board::Board(shared_ptr <Player> player1, shared_ptr <Player> player2, int playT): p1{player1}, p2{player2}, playerTurn{playT} {
     //Create empty cells
     for (int i=0; i<8; i++){
-        vector<Cell *> vect;
+        vector<shared_ptr<Cell>> vect;
         theBoard.emplace_back(vect);
         for (int j=0; j<8; ++j) {
-            Cell * temp = new Cell{i,j};
+            shared_ptr <Cell> temp = make_shared<Cell>(i,j);
+            //Cell * temp = new Cell{i,j};
             theBoard.at(i).emplace_back(temp);
-			theBoard.at(i).at(j)->setBoard(this);
+			//theBoard.at(i).at(j)->setBoard(this);
 		}
 	}
 }
@@ -51,7 +52,7 @@ void Board::basic_setup() {
 
 
 char Board::getState(int row, int col) const {
-    Cell *current = theBoard.at(row).at(col);
+    shared_ptr <Cell> current = theBoard.at(row).at(col);
     if (current->hasPiece()){
         return current->getPiece()->getName();
     }
@@ -71,9 +72,9 @@ char Board::getState(int row, int col) const {
 bool Board::movePiece(char name, string direction){
     //Set player and piece
     int player_num = 0;
-    Piece * currentPiece = nullptr;
-    Player * player = nullptr;
-    Player * opponent = nullptr;
+    shared_ptr <Piece> currentPiece = nullptr;
+    shared_ptr <Player> player = nullptr;
+    shared_ptr <Player> opponent = nullptr;
     
     if(name >= 65 && name <= 72 && playerTurn == 2){
         currentPiece = p2->getPieces().at(name - 65);
@@ -147,7 +148,7 @@ bool Board::movePiece(char name, string direction){
         //throw ();
     }
 
-    Cell * targetCell = theBoard.at(newX).at(newY);
+    shared_ptr <Cell> targetCell = theBoard.at(newX).at(newY);
     
     //Check if server
     if (targetCell->isServer()){
@@ -228,11 +229,11 @@ bool Board::movePiece(char name, string direction){
     return true;
 }
 
-Player * Board::getP1(){
+shared_ptr <Player> Board::getP1(){
     return p1;
 }
 
-Player * Board::getP2(){
+shared_ptr <Player> Board::getP2(){
     return p2;
 }
 

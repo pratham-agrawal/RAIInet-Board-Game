@@ -3,12 +3,15 @@
 #include <string>
 #include "observer.h"
 #include "board.h"
+#include <memory>
 
 class addText: public Observer {
-  Board *subject;
+  std::shared_ptr<Board> subject;
+  //Board *subject;
   
  public:
-  addText(Board *s);
+ addText(std::shared_ptr<Board> s);
+  //addText(Board *s);
   void notify() override;
   ~addText();
 };
