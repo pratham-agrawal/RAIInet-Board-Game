@@ -76,3 +76,9 @@ void Xwindow::drawString(int x, int y, string msg) {
   XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
 }
 
+void Xwindow::drawRectangle(int x, int y, int width, int height) {
+  //XSetForeground(d, gc, colours[colour]);
+  //XFillRectangle(d, w, gc, x, y, width, height);
+  //XSetForeground(d, gc, colours[Black]);
+  XDrawRectangle(d, w, gc, x, y, width, height);
+}
