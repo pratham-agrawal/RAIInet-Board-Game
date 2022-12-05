@@ -6,6 +6,85 @@
 #include "piece.h"
 using namespace std;
 
+bool Board::useAbility(int ability, int playerNum) {
+    if (1 > ability || ability > 5) {
+        return false;
+    }
+    std::shared_ptr<Player> player = p1;
+    std::shared_ptr<Player> opponent = p2;
+    if (playerNum == 2) {
+        std::shared_ptr<Player> player = p2;
+        std::shared_ptr<Player> opponent = p1;
+    }
+    if (player->getAbilities().at(ability - 1)->used()) {
+        return false;
+    }
+    string name = player->getAbilities().at(ability - 1)->getAbility();
+    char token;
+    if (!name.compare("Linkboost")) {
+        cin >> token;
+        int index = player->searchToken(token);
+        if (index == -1) {
+            return false;
+        }
+        player->getPieces().at(index)->setBoosted(true);
+    }
+    else if (!name.compare("Firewall")) {
+        //firewall
+    }
+    else if (!name.compare("Download")) {
+        cin >> token;
+        int index = opponent->searchToken(token);
+        if (index == -1) {
+            return false;
+        }
+        if (opponent->getPieces().at(index)->virus()) {
+            player->downloadVirus();
+        } else {
+            player->downloadData();
+        }
+        int row = opponent->getPieces().at(index)->getRow();
+        int col = opponent->getPieces().at(index)->getCol();
+        opponent->getPieces().at(index)->setDownloaded(true);
+        theBoard.at(row).at(col)->setPiece(nullptr);
+    }
+    else if (!name.compare("Scan")) {
+        cin >> token;
+        if (token >= 65 && token <= 72) {
+            int index = p2->searchToken(token);
+            if (index == -1) {
+                return false;
+            }
+            p2->getPieces().at(index)->setVisibility(true);
+        } else if (token >= 97 && token <= 104) {
+            int index = p1->searchToken(token);
+            if (index == -1) {
+                return false;
+            }
+            p1->getPieces().at(index)->setVisibility(true);
+        }
+    }
+    else if (!name.compare("Polarize")) {
+        cin >> token;
+        if (token >= 65 && token <= 72) {
+            int index = p2->searchToken(token);
+            if (index == -1) {
+                return false;
+            }
+            p2->getPieces().at(index)->polarize();
+        } else if (token >= 97 && token <= 104) {
+            int index = p1->searchToken(token);
+            if (index == -1) {
+                return false;
+            }
+            p1->getPieces().at(index)->polarize();
+        }
+    }
+    player->getAbilities().at(ability - 1)->usedAbility();
+    return true;
+}
+
+
 Board::Board(shared_ptr <Player> player1, shared_ptr <Player> player2, int playT): p1{player1}, p2{player2}, playerTurn{playT} {
     //Create empty cells
     for (int i=0; i<8; i++){
@@ -131,7 +210,7 @@ bool Board::movePiece(char name, string direction){
     if ((player_num == 1 && newX == 8) || (player_num == 2 && newX == -1)){
         cout << "Downloading own link" << endl;
         //REVEAL?
-        if (currentPiece->Virus()){
+        if (currentPiece->virus()){
             player->downloadVirus();
         }
         else {
@@ -159,7 +238,7 @@ bool Board::movePiece(char name, string direction){
         }
         else {
             cout << "Oponents server downloaded your link" << endl;
-            if (currentPiece->Virus()){
+            if (currentPiece->virus()){
                 opponent->downloadVirus();
             }
             else {
@@ -182,7 +261,7 @@ bool Board::movePiece(char name, string direction){
         else {
             if (currentPiece->getStrength() >= targetCell->getPiece()->getStrength()){
                 cout << "Your strength higher" << endl;
-                if (targetCell->getPiece()->Virus()){
+                if (targetCell->getPiece()->virus()){
                     player->downloadVirus();
                 }
                 else {
@@ -196,7 +275,7 @@ bool Board::movePiece(char name, string direction){
             }
             else {
                 cout << "Your strength weaker" << endl;
-                if (currentPiece->Virus()){
+                if (currentPiece->virus()){
                     opponent->downloadVirus();
                 }
                 else {
@@ -220,7 +299,7 @@ bool Board::movePiece(char name, string direction){
     //Check if firewall
     if (targetCell->isFirewall() && targetCell->isFirewall() != player_num) {
         currentPiece->setVisibility(true);
-        if (currentPiece->Virus()){
+        if (currentPiece->virus()){
             player->downloadVirus();
             targetCell->getPiece()->setDownloaded(true);
             targetCell->setPiece(nullptr);

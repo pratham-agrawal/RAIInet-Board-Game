@@ -12,30 +12,17 @@ Player::Player(): dataDownloaded{0}, virusDownloaded{0} {
     vector<char> abilities;
 }
 
-// void Player::setPieces(int playerNum) {
-//     string token;
-//     bool isVirus = false;
-//     int strength;
-//     for (char i = 'a'; i <= 'h'; ++i) {
-//         token = myPieces.at(i);
-//         if (token[0] == 'v' || token[0] == 'V') {
-//             isVirus = true;
-//         }
-//         strength = int(token[1] - '0');
-//         Piece *p = new Piece(i, isVirus, strength, playerNum);
-//         pieces.emplace_back(p);
-//     }
-// }
-
 void Player::addPiece(shared_ptr <Piece> p) {
     pieces.emplace_back(p);
 }
 
+vector<shared_ptr <Ability>> Player::getAbilities() {
+    return abilities;
+}
 
 Player::~Player() {
-    // abilities.clear();
+    abilities.clear();
     pieces.clear();
-    cout << "Player deleted: " << endl;
 }
 
 vector<shared_ptr <Piece>> Player::getPieces() {
@@ -43,23 +30,19 @@ vector<shared_ptr <Piece>> Player::getPieces() {
 }
 
 void Player::downloadData(){
-    dataDownloaded++;
+    ++dataDownloaded;
 }
 
 void Player::downloadVirus(){
-    virusDownloaded++;
+    ++virusDownloaded;
 }
 
-int Player::getData(){
+int Player::getData() {
     return dataDownloaded;
 }
 
-int Player::getVirus(){
+int Player::getVirus() {
     return virusDownloaded;
-}
-
-vector<char> Player::getAbilities(){
-    return abilities;
 }
 
 void Player::shufflePieces(int playerNum) {
@@ -76,6 +59,42 @@ void Player::shufflePieces(int playerNum) {
     }
 }
 
+int Player::searchToken(char c) {
+    int index = 0;
+    while (index < 8) {
+        if (pieces.at(index)->getName() == c) {
+            return index;
+        }
+        ++index;
+    }
+    return -1;
+}
 
+void Player::addAbility(string ability, int id) {
+    shared_ptr <Ability> a = make_shared<Ability>(ability, id);
+    abilities.push_back(a);
+}
 
+int Player::abilityCount() {
+    int count = 5;
+    for (int i = 0; i < 5; ++i) {
+        if (abilities.at(i)->used()) {
+            --count;
+        }
+    }
+    return count;
+}
 
+void Player::printAbilities() {
+    for (int i = 0; i < 5; ++i) {
+        cout << "ID: " << abilities.at(i)->getId() << endl;
+        cout << "Ability: " << abilities.at(i)->getAbility() << endl;
+        bool used = abilities.at(i)->used();
+        if (used) {
+            cout << "This ability card has been used." << endl;
+        }
+        else {
+            cout << "This ability card has not yet been used." << endl;
+        }
+    }
+}

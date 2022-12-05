@@ -9,6 +9,7 @@
 #include "player.h"
 #include "cell.h"
 #include <cstring>
+#include "ability.h"
 #include "piece.h"
 #include <random>
 #include <algorithm>
@@ -45,6 +46,24 @@ bool readFromFile(string file) {
     }
 }
 
+string charToAbility(char c) {
+  if (c == 'L') {
+      return "Linkboost";
+  }
+  else if (c == 'F') {
+      return "Firewall";
+  }
+  else if (c == 'D') {
+      return "Download";
+  }
+  else if (c == 'S') {
+      return "Scan";
+  }
+  else if (c == 'P') {
+    return "Polarize";
+  }
+}
+
 void setupLinks(string file, shared_ptr <Player> player, int playerNum) {
   ifstream in(file);
   string token;
@@ -76,6 +95,8 @@ void game_setup(int argc, char* argv[], std::shared_ptr <Player> player1, std::s
   bool link2 = false;
   bool graphics = false;
   string order;
+  char ability;
+  string word;
   string placement_file;
   int cmd_line_arg = 1;
 
@@ -84,11 +105,21 @@ void game_setup(int argc, char* argv[], std::shared_ptr <Player> player1, std::s
       ability1 = true;
       ++cmd_line_arg;
       order = argv[cmd_line_arg];
+      for (int i = 0; i < 5; ++i) {
+        ability = order[i];
+        word = charToAbility(ability);
+        player1->addAbility(word, i + 1);
+      }
     }
     else if (!strcmp(argv[cmd_line_arg], "-ability2")) {
       ability2 = true;
       ++cmd_line_arg;
       order = argv[cmd_line_arg];
+      for (int i = 0; i < 5; ++i) {
+        ability = order[i];
+        word = charToAbility(ability);
+        player2->addAbility(word, i + 1);
+      }
     }
     else if (!strcmp(argv[cmd_line_arg], "-link1")) {
       link1 = true;
@@ -110,9 +141,19 @@ void game_setup(int argc, char* argv[], std::shared_ptr <Player> player1, std::s
   }
   if (!ability1) {
     order = "LFDSP";
+    for (int i = 0; i < 5; ++i) {
+      ability = order[i];
+      word = charToAbility(ability);
+      player1->addAbility(word, i + 1);
+    }
   }
   if (!ability2) {
     order = "LFDSP";
+    for (int i = 0; i < 5; ++i) {
+      ability = order[i];
+      word = charToAbility(ability);
+      player2->addAbility(word, i + 1);
+    }
   }
   if (!link1) {
     bool isVirus = false;
@@ -184,12 +225,27 @@ int main (int argc, char* argv[]) {
       }
     }
     else if (command == "abilities") {
-      cout << "The abilities are: " << endl;
+      if (b->getPlayerTurn() == 1) {
+        player1->printAbilities();
+      }
+      else {
+        player2->printAbilities();
+      }
     }
     else if (command == "ability") {
       int ability;
       std::cin >> ability;
       cout << "Executing ability: " << ability << endl;
+      if (b->getPlayerTurn() == 1) {
+        if (!b->useAbility(ability, 1)) {
+          cout << "Invalid Input: Please Try Again" << endl;
+        }
+      }
+      else {
+        if (!b->useAbility(ability, 2)) {
+          cout << "Invalid Input: Please Try Again" << endl;
+        }
+      }
     }
     else if (command == "board") {
       //cout << "Here is the board: " << endl;

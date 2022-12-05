@@ -28,12 +28,9 @@ class Piece {
         char getName() const;
         std::string getLink() const;
         bool playerTwo() const;
-        //void setBoard(Board * b);
-        //void setCell(Cell * c);
         int getStrength();
-        //Cell* getCell();
-        bool Virus() const;
-        void setVirus(bool vir);
+        bool virus() const;
+        void polarize();
         int getRow();
         int getCol();
         int getPlayer();
@@ -43,12 +40,10 @@ class Piece {
         bool getVisibility();
         std::string getLinkName();
         void changeName(char newName);
-        int getBoosted();
+        bool getBoosted();
         void setBoosted(bool val);
         bool getDownloaded();
         void setDownloaded(bool d);
-        //bool flipRevealed();
-        //bool getRevealed();
 };
 
 #endif

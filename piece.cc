@@ -1,7 +1,7 @@
 #include "piece.h"
 using namespace std;
 
-Piece::Piece(char n, string link, bool vir, int str, int player): name{n},  link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false}, isBoosted{false}, isDownloaded{false} {}
+Piece::Piece(char n, string link, bool vir, int str, int player): name{n}, link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false}, isBoosted{false}, isDownloaded{false} {}
 
 char Piece::getName() const{
     return name;
@@ -19,14 +19,19 @@ bool Piece::playerTwo() const{
     return playerNum - 1;
 }
 
-bool Piece::Virus() const{
+bool Piece::virus() const{
     return isVirus;
 }
 
-void Piece::setVirus(bool vir){
-    isVirus = vir;
+void Piece::polarize() {
+    if (isVirus) {
+        link = "D" + to_string(strength);
+    }
+    else {
+        link = "V" + to_string(strength);
+    }
+    isVirus = !isVirus;
 }
-
 
 
 int Piece::getStrength() {
@@ -65,11 +70,13 @@ string Piece::getLinkName(){
 void Piece::changeName(char newName) {
     name = newName;
 }
-int Piece::getBoosted(){
+
+bool Piece::getBoosted(){
     return isBoosted;
 }
 
 void Piece::setBoosted(bool val){
+    cout << name << " just got boosted!" << endl;
     isBoosted = val;
 }
 
@@ -81,24 +88,3 @@ void Piece::setDownloaded(bool d){
     isDownloaded = d;
 }
 
-/*
-void Piece::setBoard(Board * b){
-    b = b;
-}
-
-void Piece::setCell(Cell * c){
-    cell = c;
-}
-
-Cell* Piece::getCell(){
-    return cell;
-}
-
-void Piece::flipReveled(){
-    isRevealed = !(isRevealed);
-}
-
-bool Piece::getRevealed(){
-    return isRevealed;
-}
-*/
