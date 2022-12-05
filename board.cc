@@ -10,17 +10,23 @@ bool Board::useAbility(int ability, int playerNum) {
     if (1 > ability || ability > 5) {
         return false;
     }
-    std::shared_ptr<Player> player = p1;
-    std::shared_ptr<Player> opponent = p2;
-    if (playerNum == 2) {
-        std::shared_ptr<Player> player = p2;
-        std::shared_ptr<Player> opponent = p1;
-    }
-    if (player->getAbilities().at(ability - 1)->used()) {
+    if (playerNum == 1 && p1->getAbilities().at(ability - 1)->used()) {
         return false;
     }
-    string name = player->getAbilities().at(ability - 1)->getAbility();
+    else if (playerNum == 2 && p2->getAbilities().at(ability - 1)->used()) {
+        return false;
+    }
+    shared_ptr<Player> player;
+    shared_ptr<Player> opponent;
+    if (playerNum == 1) {
+        player = p1;
+        opponent = p2;
+    } else if (playerNum == 2) {
+        player = p2;
+        opponent = p1;
+    }
     char token;
+    string name = player->getAbilities().at(ability - 1)->getAbility();
     if (!name.compare("Linkboost")) {
         cin >> token;
         int index = player->searchToken(token);
@@ -30,7 +36,17 @@ bool Board::useAbility(int ability, int playerNum) {
         player->getPieces().at(index)->setBoosted(true);
     }
     else if (!name.compare("Firewall")) {
-        //firewall
+        int row;
+        int col;
+        cin >> row;
+        cin >> col;
+        if (row > 8 || row < 0 || col > 8 || col < 0) {
+            return false;
+        }
+        if (theBoard.at(row).at(col)->isFirewall() || theBoard.at(row).at(col)->isServer() || theBoard.at(row).at(col)->hasPiece()) {
+            return false;
+        }
+        theBoard.at(row).at(col)->setFirewall(playerNum);
     }
     else if (!name.compare("Download")) {
         cin >> token;
