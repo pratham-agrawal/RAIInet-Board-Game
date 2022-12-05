@@ -5,17 +5,23 @@
 #include "addText.h"
 using namespace std;
 
+addText::addText(shared_ptr<Board> s): subject{s} {
+  subject->attach(this);
+}
+
+/*
 addText::addText(Board *s): subject{s} {
   subject->attach(this);
 }
+*/
 
 addText::~addText() {
   subject->detach(this);
 }
 
 void addText::notify() {
-  Player * p1 = subject->getP1();
-  Player * p2 = subject->getP2();
+  shared_ptr<Player> p1 = subject->getP1();
+  shared_ptr<Player> p2 = subject->getP2();
   cout << "Player " << "1" << ":" << endl;
   cout << "Downloaded: " << p1->getData() << "D, " << p1->getVirus() << "V" << endl;
   cout << "Abilities: " << p1->getAbilities().size() << endl;

@@ -5,17 +5,18 @@
 #include <map>
 #include "piece.h"
 #include <iostream>
+#include <memory>
 
 class Player {
-    std::vector<Piece *> pieces;
+    std::vector<std::shared_ptr <Piece>> pieces;
     int dataDownloaded;
     int virusDownloaded;
     std::vector<char> abilities;
     public:
         Player();
         ~Player();
-        std::vector<Piece *> getPieces();
-        void addPiece(Piece *p);
+        std::vector<std::shared_ptr <Piece>> getPieces();
+        void addPiece(std::shared_ptr <Piece>);
         void downloadData();
         void downloadVirus();
         int getData();

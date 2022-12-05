@@ -8,7 +8,7 @@
 using namespace std;
 
 Player::Player(): dataDownloaded{0}, virusDownloaded{0} {
-    vector<Piece *> pieces;
+    vector<shared_ptr <Piece>> pieces;
     vector<char> abilities;
 }
 
@@ -27,7 +27,7 @@ Player::Player(): dataDownloaded{0}, virusDownloaded{0} {
 //     }
 // }
 
-void Player::addPiece(Piece *p) {
+void Player::addPiece(shared_ptr <Piece> p) {
     pieces.emplace_back(p);
 }
 
@@ -38,7 +38,7 @@ Player::~Player() {
     cout << "Player deleted: " << endl;
 }
 
-vector<Piece *> Player::getPieces() {
+vector<shared_ptr <Piece>> Player::getPieces() {
     return pieces;
 }
 

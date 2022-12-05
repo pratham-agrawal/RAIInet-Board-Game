@@ -45,7 +45,7 @@ bool readFromFile(string file) {
     }
 }
 
-void setupLinks(string file, Player *player, int playerNum) {
+void setupLinks(string file, shared_ptr <Player> player, int playerNum) {
   ifstream in(file);
   string token;
   char ascii;
@@ -61,14 +61,15 @@ void setupLinks(string file, Player *player, int playerNum) {
       isVirus = true;
     }
     strength = int(token[1] - '0');
-    Piece *p = new Piece(ascii, token, isVirus, strength, playerNum);
+    shared_ptr <Piece> p = make_shared<Piece>(ascii, token, isVirus, strength, playerNum);;
+    //Piece *p = new Piece(ascii, token, isVirus, strength, playerNum);
     // cout << "Piece Created: This is my strength: " << p->getStrength() << endl;
     player->addPiece(p);
     ++ascii;
   }
 }
 
-void game_setup(int argc, char* argv[], Player *player1, Player *player2) {
+void game_setup(int argc, char* argv[], std::shared_ptr <Player> player1, std::shared_ptr <Player> player2) {
   bool ability1 = false;
   bool ability2 = false;
   bool link1 = false;
@@ -119,12 +120,14 @@ void game_setup(int argc, char* argv[], Player *player1, Player *player2) {
     string token;
     vector<string> links = {"D1", "D2", "D3", "D4", "V1", "V2", "V3", "V4"};
     for (int j = 0; j < 4; ++j) {
-      Piece *p = new Piece(ascii + j, links.at(j), isVirus, j + 1, 1);
+      shared_ptr <Piece> p = make_shared<Piece>(ascii + j, links.at(j), isVirus, j + 1, 1);
+      //Piece *p = new Piece(ascii + j, links.at(j), isVirus, j + 1, 1);
       player1->addPiece(p);
     }
     isVirus = true;
     for (int i = 4; i < 8; ++i) {
-      Piece *p = new Piece(ascii + i, links.at(i), isVirus, i - 3, 1);
+      shared_ptr <Piece> p = make_shared<Piece>(ascii + i, links.at(i), isVirus, i - 3, 1);
+      //Piece *p = new Piece(ascii + i, links.at(i), isVirus, i - 3, 1);
       player1->addPiece(p);
     }
     player1->shufflePieces(1);
@@ -135,12 +138,14 @@ void game_setup(int argc, char* argv[], Player *player1, Player *player2) {
     string token;
     vector<string> links = {"D1", "D2", "D3", "D4", "V1", "V2", "V3", "V4"};
     for (int j = 0; j < 4; ++j) {
-      Piece *p = new Piece(ascii + j, links.at(j), isVirus, j + 1, 2);
+      shared_ptr <Piece> p = make_shared<Piece>(ascii + j, links.at(j), isVirus, j + 1, 2);
+      //Piece *p = new Piece(ascii + j, links.at(j), isVirus, j + 1, 2);
       player2->addPiece(p);
     }
     isVirus = true;
     for (int i = 4; i < 8; ++i) {
-      Piece *p = new Piece(ascii + i, links.at(i), isVirus, i - 3, 2);
+      shared_ptr <Piece> p = make_shared<Piece>(ascii + i, links.at(i), isVirus, i - 3, 2);
+      //Piece *p = new Piece(ascii + i, links.at(i), isVirus, i - 3, 2);
       player2->addPiece(p);
     }
     player2->shufflePieces(2);
@@ -148,12 +153,16 @@ void game_setup(int argc, char* argv[], Player *player1, Player *player2) {
 }
 
 int main (int argc, char* argv[]) {
-  Player *player1 = new Player();
-  Player *player2 = new Player();
+  shared_ptr <Player> player1 = make_shared<Player>();
+  shared_ptr <Player> player2 = make_shared<Player>();
+  //Player *player1 = new Player();
+  //Player *player2 = new Player();
   game_setup(argc, argv, player1, player2);
-  Board *b = new Board(player1, player2, 1);
+  shared_ptr <Board> b = make_shared<Board>(player1, player2, 1);
+  //Board *b = new Board(player1, player2, 1);
   b->basic_setup();
-  addText * text = new addText(b);
+  shared_ptr <addText> text = make_shared<addText>(b);
+  //addText * text = new addText(b);
   string command;
   bool ended = false;
   while (cin >> command) {
@@ -194,6 +203,5 @@ int main (int argc, char* argv[]) {
       if(ended) break;      
     }
   }
-  delete text;
 }
 

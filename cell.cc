@@ -29,11 +29,11 @@ int Cell::getCol(){
     return col;
 }
 
-Piece* Cell::getPiece(){
+shared_ptr <Piece> Cell::getPiece(){
     return piece;
 }
 
-void Cell::setBoard(Board * b){
+void Cell::setBoard(shared_ptr <Board> b){
     theBoard = b;
 }
 
@@ -46,6 +46,6 @@ void Cell::setServer(int x){
     server = x;
 }
 
-void Cell::setPiece(Piece *p){
+void Cell::setPiece(shared_ptr <Piece> p){
     piece = p;
 }

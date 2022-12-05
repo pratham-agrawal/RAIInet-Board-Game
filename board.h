@@ -9,18 +9,18 @@
 #include <vector>
 
 class Board: public Subject{
-    std::vector<std::vector<Cell*>> theBoard;
-    Player *p1;
-    Player *p2;
+    std::vector<std::vector<std::shared_ptr<Cell>>> theBoard;
+    std::shared_ptr <Player> p1;
+    std::shared_ptr <Player> p2;
     int playerTurn;
     public:
-        Board(Player *player1, Player *player2, int playT);
+        Board(std::shared_ptr <Player> player1, std::shared_ptr <Player> player2, int playT);
         void basic_setup();
         bool movePiece(char name, std::string direction);
         char getState(int row, int col) const;
         bool positionOccupied(int x, int y);
-        Player* getP1();
-        Player* getP2();
+        std::shared_ptr <Player> getP1();
+        std::shared_ptr <Player> getP2();
         int getPlayerTurn();
         void setTurn(int turn);
         void displayBoard();
