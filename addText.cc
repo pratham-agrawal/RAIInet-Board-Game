@@ -3,17 +3,12 @@
 #include "observer.h"
 #include "board.h"
 #include "addText.h"
+#include "ability.h"
 using namespace std;
 
 addText::addText(shared_ptr<Board> s): subject{s} {
   subject->attach(this);
 }
-
-/*
-addText::addText(Board *s): subject{s} {
-  subject->attach(this);
-}
-*/
 
 addText::~addText() {
   subject->detach(this);
@@ -24,7 +19,7 @@ void addText::notify() {
   shared_ptr<Player> p2 = subject->getP2();
   cout << "Player " << "1" << ":" << endl;
   cout << "Downloaded: " << p1->getData() << "D, " << p1->getVirus() << "V" << endl;
-  cout << "Abilities: " << p1->getAbilities().size() << endl;
+  cout << "Abilities: " << p1->abilityCount() << endl;
   for (int i = 0; i < 8; i++){
     cout << char(i+97) << ": ";
     if(subject->getPlayerTurn() == 1 || p1->getPieces().at(i)->getVisibility()){ 
@@ -50,7 +45,7 @@ void addText::notify() {
   cout << "========" << endl;
   cout << "Player " << "2" << ":" << endl;
   cout << "Downloaded: " << p2->getData() << "D, " << p2->getVirus() << "V" << endl;
-  cout << "Abilities: " << p2->getAbilities().size() << endl;
+  cout << "Abilities: " << p2->abilityCount() << endl;
   for (int i = 0; i < 8; i++){
     cout << char(i+65) << ": ";
     if(subject->getPlayerTurn() == 2 || p2->getPieces().at(i)->getVisibility()){ 
