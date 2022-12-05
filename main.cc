@@ -4,6 +4,7 @@
 #include <memory>
 #include "board.h"
 #include "addText.h"
+#include "addGraphics.h"
 #include "subject.h"
 #include "observer.h"
 #include "player.h"
@@ -204,6 +205,7 @@ int main (int argc, char* argv[]) {
   b->basic_setup();
   shared_ptr <addText> text = make_shared<addText>(b);
   //addText * text = new addText(b);
+  shared_ptr <addGraphics> display = make_shared<addGraphics>(b);
   string command;
   bool ended = false;
   while (cin >> command) {
