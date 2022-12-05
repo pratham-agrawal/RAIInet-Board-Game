@@ -31,8 +31,8 @@ class Piece {
         //void setCell(Cell * c);
         int getStrength();
         //Cell* getCell();
-        bool Virus() const;
-        void setVirus(bool vir);
+        bool virus() const;
+        void polarize();
         int getRow();
         int getCol();
         int getPlayer();

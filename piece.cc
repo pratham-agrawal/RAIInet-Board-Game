@@ -1,7 +1,7 @@
 #include "piece.h"
 using namespace std;
 
-Piece::Piece(char n, string link, bool vir, int str, int player): name{n},  link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false}, isBoosted{false} {}
+Piece::Piece(char n, string link, bool vir, int str, int player): name{n}, link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false}, isBoosted{false} {}
 
 char Piece::getName() const{
     return name;
@@ -19,14 +19,19 @@ bool Piece::playerTwo() const{
     return playerNum - 1;
 }
 
-bool Piece::Virus() const{
+bool Piece::virus() const{
     return isVirus;
 }
 
-void Piece::setVirus(bool vir){
-    isVirus = vir;
+void Piece::polarize() {
+    if (isVirus) {
+        link = "D" + to_string(strength);
+    }
+    else {
+        link = "V" + to_string(strength);
+    }
+    isVirus = !isVirus;
 }
-
 
 
 int Piece::getStrength() {

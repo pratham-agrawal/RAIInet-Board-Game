@@ -230,10 +230,14 @@ int main (int argc, char* argv[]) {
       std::cin >> ability;
       cout << "Executing ability: " << ability << endl;
       if (b->getPlayerTurn() == 1) {
-        player1->useAbility(ability);
+        if (!b->useAbility(ability, 1)) {
+          cout << "Invalid Input: Please Try Again" << endl;
+        }
       }
       else {
-        player2->useAbility(ability);
+        if (!b->useAbility(ability, 2)) {
+          cout << "Invalid Input: Please Try Again" << endl;
+        }
       }
     }
     else if (command == "board") {

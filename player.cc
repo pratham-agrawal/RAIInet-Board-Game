@@ -48,6 +48,17 @@ int Player::getVirus(){
     return virusDownloaded;
 }
 
+int Player::searchToken(char c) {
+    int index = 0;
+    while (index < 8) {
+        if (pieces.at(index)->getName() == c) {
+            return index;
+        }
+        ++index;
+    }
+    return -1;
+}
+
 void Player::shufflePieces(int playerNum) {
     shuffle(pieces.begin(), pieces.end(), random_device());
     char ascii;
@@ -91,32 +102,4 @@ void Player::printAbilities() {
     }
 }
 
-void Player::useAbility(int ability) {
-    char token;
-    string name = abilities.at(ability - 1)->getAbility();
-    if (!name.compare("Linkboost")) {
-        cin >> token;
-        int index = 0;
-        while (index < 5) {
-            if (pieces.at(index)->getName() == token) {
-                break;
-            }
-            ++index;
-        }
-        pieces.at(index)->setBoosted(true);
-    }
-    else if (!name.compare("Firewall")) {
-        //firewall
-    }
-    else if (!name.compare("Download")) {
-        //download
-    }
-    else if (!name.compare("Scan")) {
-        //scan
-    }
-    else if (!name.compare("Polarize")) {
-        //polarize
-    }
-    abilities.at(ability - 1)->usedAbility();
-}
 

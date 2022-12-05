@@ -25,9 +25,9 @@ class Player {
         int getData();
         int getVirus();
         void addAbility(std::string ability, int id);
-        void useAbility(int ability);
         void shufflePieces(int playerNum);
         void printAbilities();
+        int searchToken(char c);
 };
 
 #endif
