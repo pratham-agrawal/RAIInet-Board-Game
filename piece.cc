@@ -87,21 +87,3 @@ void Piece::setBoosted(bool val){
     cout << name << " just got boosted!" << endl;
     isBoosted = val;
 }
-
-bool Piece::getDownloaded(){
-    return isDownloaded;
-}
-
-void Piece::setDownloaded(bool d){
-    isDownloaded = d;
-}
-
-/*
-void Piece::setBoard(Board * b){
-    b = b;
-}
-
-void Piece::setDownloaded(bool d){
-    isDownloaded = d;
-}
-

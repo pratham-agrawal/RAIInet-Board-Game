@@ -44,10 +44,8 @@ class Piece {
         std::string getLinkName();
         bool getBoosted();
         void setBoosted(bool val);
-        bool getDownloaded();
         void setDownloaded(bool d);
-        //bool flipRevealed();
-        //bool getRevealed();
+        bool getDownloaded();
         void changeName(char newName);
 };
 
