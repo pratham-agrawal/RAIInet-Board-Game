@@ -1,11 +1,42 @@
 #include "piece.h"
 using namespace std;
 
-Piece::Piece(char n, string link, bool vir, int str, int player): name{n}, link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false}, isBoosted{false}, isDownloaded{false} {}
+Piece::Piece(char n, string link, bool vir, int str, int player): name{n}, link{link}, isVirus{vir}, strength{str}, playerNum{player}, isVisible{false}, isBoosted{false}, isDownloaded{false}, cemented{false} {}
 
 char Piece::getName() const{
     return name;
 }
+
+bool Piece::isCemented() {
+    return cemented;
+}
+
+void Piece::setUmbrella(bool val) {
+    umbrella = val;
+}
+bool Piece::getUmbrella() {
+    return umbrella;
+}
+
+
+
+void Piece::cementPiece() {
+    cemented = true;
+    cementCounter = 6;
+    cout << name << " has been cemented" << endl;
+}
+
+int Piece::getCementCount() {
+    return cementCounter;
+}
+
+void Piece::decreaseCement() {
+    --cementCounter;
+    if (cementCounter == 0) {
+        cemented = false;
+    }
+}
+
 
 std::string Piece::getLink() const {
     return link;

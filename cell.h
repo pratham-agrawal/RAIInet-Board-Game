@@ -14,6 +14,7 @@ class Cell {
     std::shared_ptr <Piece> piece;
     int server;
     int firewall;
+    bool hurricaned;
     public:
         Cell(int row, int col);
         int hasPiece() const;
@@ -26,6 +27,8 @@ class Cell {
         void setFirewall(int x);
         void setServer(int x);
         void setPiece(std::shared_ptr <Piece> p);
+        bool isHurricaned();
+        bool setHurricaned(bool val);
 };
 
 #endif

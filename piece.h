@@ -22,6 +22,9 @@ class Piece {
     int col;
     bool isBoosted;
     bool isDownloaded;
+    bool cemented;
+    int cementCounter;
+    bool umbrella;
     //bool isRevealed; // if revealed then true
     public:
         Piece(char n, std::string link, bool vir, int str, int player);
@@ -44,6 +47,12 @@ class Piece {
         void setBoosted(bool val);
         bool getDownloaded();
         void setDownloaded(bool d);
+        bool isCemented();
+        void cementPiece();
+        void decreaseCement();
+        int getCementCount();
+        void setUmbrella(bool val);
+        bool getUmbrella();
 };
 
 #endif

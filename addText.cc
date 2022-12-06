@@ -20,8 +20,8 @@ void addText::notify() {
   cout << "Player " << "1" << ":" << endl;
   cout << "Downloaded: " << p1->getData() << "D, " << p1->getVirus() << "V" << endl;
   cout << "Abilities: " << p1->abilityCount() << endl;
-  for (int i = 0; i < 8; i++){
-    cout << char(i+97) << ": ";
+  for (int i = 0; i < 8; i++) {
+    cout << p1->getPieces().at(i)->getName() << ": ";
     if(subject->getPlayerTurn() == 1 || p1->getPieces().at(i)->getVisibility()){ 
       cout << p1->getPieces().at(i)->getLinkName();
     } else{
@@ -37,7 +37,7 @@ void addText::notify() {
   //cout << "e: " << "f: " << "g: " << "h: " << endl;
   cout << "========" << endl;
   for (int i = 0; i < 8; ++i){
-      for (int j = 0; j < 8; ++j){
+      for (int j = 0; j < 8; ++j) {
           cout << subject->getState(i,j);
       }
       cout << endl;
@@ -47,7 +47,7 @@ void addText::notify() {
   cout << "Downloaded: " << p2->getData() << "D, " << p2->getVirus() << "V" << endl;
   cout << "Abilities: " << p2->abilityCount() << endl;
   for (int i = 0; i < 8; i++){
-    cout << char(i+65) << ": ";
+    cout << p2->getPieces().at(i)->getName() << ": ";
     if(subject->getPlayerTurn() == 2 || p2->getPieces().at(i)->getVisibility()){ 
       cout << p2->getPieces().at(i)->getLinkName();
     } else{

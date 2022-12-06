@@ -80,6 +80,15 @@ string charToAbility(char c) {
   else if (c == 'P') {
     return "Polarize";
   }
+  else if (c == 'C') {
+    return "Cement";
+  }
+  else if (c == 'U') {
+    return "Umbrella";
+  }
+  else if (c == 'H') {
+    return "Hurricane";
+  }
 }
 
 void setupLinks(string file, shared_ptr <Player> player, int playerNum) {
@@ -236,6 +245,10 @@ int main (int argc, char* argv[]) {
       cin >> link >> direction;
       //cout << "We want to move link: " << link << " direction: " << direction << endl;
       bool valid = b->movePiece(link, direction);
+      if (valid) {
+        b->updateCemented();
+        b->updateHurricane();
+      }
       if (b->getPlayerTurn() == 1 && valid) {
         b->setTurn(2);
       }
