@@ -16,12 +16,13 @@
 #include <algorithm>
 using namespace std;
 
-/*
-bool readFromFile(string file) {
+
+bool readFromFile(string file, shared_ptr <Board> b, shared_ptr <Player> player1, shared_ptr <Player> player2) {
     ifstream in(file);
     string fileCommand;
     for ( ;; ){
         in >> fileCommand;
+        //cout << fileCommand;
         if (in.fail()) return false;
         if (fileCommand == "quit"){
             cout << "Game is quit" << endl;
@@ -31,7 +32,7 @@ bool readFromFile(string file) {
         else if (fileCommand == "move") {
             char link;
             string direction;
-            cin >> link >> direction;
+            in >> link >> direction;
             //cout << "We want to move link: " << link << " direction: " << direction << endl;
             bool valid = b->movePiece(link, direction);
             if (b->getPlayerTurn() == 1 && valid) {
@@ -51,7 +52,7 @@ bool readFromFile(string file) {
         }
         else if (fileCommand == "ability") {
             int ability;
-            std::cin >> ability;
+            in >> ability;
             //cout << "Executing ability: " << ability << endl;
             if (!b->useAbility(ability, b->getPlayerTurn())) {
               cout << "Invalid Input: Please Try Again" << endl;
@@ -62,7 +63,6 @@ bool readFromFile(string file) {
         }
     }
 }
-*/
 
 string charToAbility(char c) {
   if (c == 'L') {
@@ -279,7 +279,7 @@ int main (int argc, char* argv[]) {
       ended = false;
       string infile;
       cin >> infile;
-      //ended = readFromFile(infile);
+      ended = readFromFile(infile, b, player1, player2);
       if(ended) break;      
     }
   }
