@@ -4,6 +4,7 @@
 #include <memory>
 #include "board.h"
 #include "addText.h"
+#include "addGraphics.h"
 #include "subject.h"
 #include "observer.h"
 #include "player.h"
@@ -15,6 +16,7 @@
 #include <algorithm>
 using namespace std;
 
+/*
 bool readFromFile(string file) {
     ifstream in(file);
     string fileCommand;
@@ -29,22 +31,38 @@ bool readFromFile(string file) {
         else if (fileCommand == "move") {
             char link;
             string direction;
-            in >> link >> direction;
-            cout << "We want to move link: " << link << " direction: " << direction << endl;
+            cin >> link >> direction;
+            //cout << "We want to move link: " << link << " direction: " << direction << endl;
+            bool valid = b->movePiece(link, direction);
+            if (b->getPlayerTurn() == 1 && valid) {
+              b->setTurn(2);
+            }
+            else if(valid){
+              b->setTurn(1);
+            }
         }
         else if (fileCommand == "abilities") {
-            cout << "The abilities are: " << endl;
+          if (b->getPlayerTurn() == 1) {
+            player1->printAbilities();
+          }
+          else {
+            player2->printAbilities();
+          }
         }
         else if (fileCommand == "ability") {
             int ability;
-            in >> ability;
-            cout << "Executing ability: " << ability << endl;
+            std::cin >> ability;
+            //cout << "Executing ability: " << ability << endl;
+            if (!b->useAbility(ability, b->getPlayerTurn())) {
+              cout << "Invalid Input: Please Try Again" << endl;
+            }
         }
         else if (fileCommand == "board") {
-            cout << "Here is the board: " << endl;
+            b->displayBoard();
         }
     }
 }
+*/
 
 string charToAbility(char c) {
   if (c == 'L') {
@@ -213,18 +231,19 @@ int main (int argc, char* argv[]) {
   b->basic_setup();
   shared_ptr <addText> text = make_shared<addText>(b);
   //addText * text = new addText(b);
+  shared_ptr <addGraphics> display = make_shared<addGraphics>(b);
   string command;
   bool ended = false;
   while (cin >> command) {
     if (command == "quit") {
-      cout << "Game is quit" << endl;
+      //cout << "Game is quit" << endl;
       break;
     }
     else if (command == "move") {
       char link;
       string direction;
       cin >> link >> direction;
-      cout << "We want to move link: " << link << " direction: " << direction << endl;
+      //cout << "We want to move link: " << link << " direction: " << direction << endl;
       bool valid = b->movePiece(link, direction);
       if (valid) {
         b->updateCemented();
@@ -248,7 +267,7 @@ int main (int argc, char* argv[]) {
     else if (command == "ability") {
       int ability;
       std::cin >> ability;
-      cout << "Executing ability: " << ability << endl;
+      //cout << "Executing ability: " << ability << endl;
       if (!b->useAbility(ability, b->getPlayerTurn())) {
         cout << "Invalid Input: Please Try Again" << endl;
       }
@@ -260,7 +279,7 @@ int main (int argc, char* argv[]) {
       ended = false;
       string infile;
       cin >> infile;
-      ended = readFromFile(infile);
+      //ended = readFromFile(infile);
       if(ended) break;      
     }
   }
