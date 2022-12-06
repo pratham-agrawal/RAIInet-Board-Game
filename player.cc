@@ -95,6 +95,16 @@ int Player::searchToken(char c) {
 }
 
 void Player::addAbility(string ability, int id) {
+    int count = 0;
+    for (int i = 0; i < abilities.size(); ++i) {
+        if (abilities.at(i)->getAbility() == ability) {
+            ++count;
+        }
+    }
+    if (count > 1) {
+        cout << "Too many of one ability (You are only allowed up to 2 of each kind): Exit 1" << endl;
+        exit(1);
+    }
     shared_ptr <Ability> a = make_shared<Ability>(ability, id);
     abilities.push_back(a);
 }
