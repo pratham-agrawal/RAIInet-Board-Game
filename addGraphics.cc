@@ -55,7 +55,7 @@ void addGraphics::notify() {
       locationX = 20;
     }
     for (int x = 0; x < 4; x++){
-        window->fillRectangle(locationX + x*140, locationY + i*70, 70, 70);
+        window->fillRectangle((locationX + x*140), (locationY + i*70), 70, 70, 9);
     }
   }
 
@@ -66,11 +66,15 @@ void addGraphics::notify() {
     for (int x = 0; x < 8; x++){
       char current = subject->getState(i,x);
       if (current == '.') continue;
-      else if(current == 'm'){
+      else if(current == 'm') {
         window->fillRectangle(locationX + x*70, locationY + i*70, 40, 40, 7);
-      } else if(current == 'w'){
+      } else if(current == 'w') {
         window->fillRectangle(locationX + x*70, locationY + i*70, 40, 40, 8);
-      } else if(current == 's'){
+      } else if (current == '?') {
+        string letter(1, current);
+        window->fillRectangle(locationX + x*70, locationY+ i*70, 40, 40, 5);
+        window->drawString( 18 + locationX + x*70, 20 + locationY + i*70, letter);
+      } else if(current == 's') {
         window->fillRectangle(locationX + x*70, locationY + i*70, 40, 40, 1);
       } else if(current >= 65 && current <= 72){
         string letter(1, current);
