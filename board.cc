@@ -54,6 +54,11 @@ bool Board::useAbility(int ability, int playerNum) {
         if (index == -1) {
             return false;
         }
+        if (opponent->getPieces().at(index)->getUmbrella()) {
+            player->getAbilities().at(ability - 1)->usedAbility();
+            cout << "Has an umbrella" << endl;
+            return true;
+        }
         if (opponent->getPieces().at(index)->virus()) {
             player->downloadVirus();
         } else {
@@ -71,11 +76,21 @@ bool Board::useAbility(int ability, int playerNum) {
             if (index == -1) {
                 return false;
             }
+            if (playerNum == 1 && p2->getPieces().at(index)->getUmbrella()) {
+                player->getAbilities().at(ability - 1)->usedAbility();
+                cout << "Has an umbrella" << endl;
+                return true;
+            }
             p2->getPieces().at(index)->setVisibility(true);
         } else if (token >= 97 && token <= 104) {
             int index = p1->searchToken(token);
             if (index == -1) {
                 return false;
+            }
+            if (playerNum == 2 && p1->getPieces().at(index)->getUmbrella()) {
+                player->getAbilities().at(ability - 1)->usedAbility();
+                cout << "Has an umbrella" << endl;
+                return true;
             }
             p1->getPieces().at(index)->setVisibility(true);
         }
@@ -87,17 +102,91 @@ bool Board::useAbility(int ability, int playerNum) {
             if (index == -1) {
                 return false;
             }
+            if (playerNum == 1 && p2->getPieces().at(index)->getUmbrella()) {
+                player->getAbilities().at(ability - 1)->usedAbility();
+                cout << "Has an umbrella" << endl;
+                return true;
+            }
             p2->getPieces().at(index)->polarize();
         } else if (token >= 97 && token <= 104) {
             int index = p1->searchToken(token);
             if (index == -1) {
                 return false;
             }
+            if (playerNum == 2 && p1->getPieces().at(index)->getUmbrella()) {
+                player->getAbilities().at(ability - 1)->usedAbility();
+                cout << "Has an umbrella" << endl;
+                return true;
+            }
             p1->getPieces().at(index)->polarize();
         }
     }
+    else if (!name.compare("Umbrella")) {
+        cin >> token;
+        int index = player->searchToken(token);
+        if (index == -1) {
+            return false;
+        }
+        player->getPieces().at(index)->setUmbrella(true);
+    }
+    else if (!name.compare("Cement")) {
+        cin >> token;
+        int index = opponent->searchToken(token);
+        if (index == -1) {
+            return false;
+        }
+        if (opponent->getPieces().at(index)->getUmbrella()) {
+            player->getAbilities().at(ability - 1)->usedAbility();
+            cout << "Has an umbrella" << endl;
+            return true;
+        }
+        shared_ptr<Piece> p = opponent->getPieces().at(index);
+        p->cementPiece();
+        cementedPieces.emplace_back(p);
+    }
+    else if (!name.compare("Hurricane")) {
+        //Hurricane
+        cout << "HURRICANE WARNING!" << endl;
+        int side;
+        if (playerNum == 1) {
+            side = 4;
+            p2->hurricaned();
+        } else {
+            side = 0;
+            p1->hurricaned();
+        }
+        for (int i = side; i < side + 4; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                theBoard.at(i).at(j)->setHurricaned(true);
+            }
+        }
+
+    }
     player->getAbilities().at(ability - 1)->usedAbility();
     return true;
+}
+
+void Board::updateHurricane() {
+    if (p1->isHurricane()) {
+        p1->decreaseHurricane();
+    }
+    if (p2->isHurricane()) {
+        p2->decreaseHurricane();
+    }
+    if (p1->getHurricaneCount() == 0) {
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                theBoard.at(i).at(j)->setHurricaned(false);
+            }
+        }
+    }
+    if (p2->getHurricaneCount() == 0) {
+        for (int i = 4; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                theBoard.at(i).at(j)->setHurricaned(false);
+            }
+        }
+    }
 }
 
 
@@ -113,6 +202,7 @@ Board::Board(shared_ptr <Player> player1, shared_ptr <Player> player2, int playT
 			//theBoard.at(i).at(j)->setBoard(this);
 		}
 	}
+    vector<shared_ptr <Piece>> cementedPieces;
 }
 
 void Board::basic_setup() {
@@ -148,6 +238,9 @@ void Board::basic_setup() {
 
 char Board::getState(int row, int col) const {
     shared_ptr <Cell> current = theBoard.at(row).at(col);
+    if (current->isHurricaned()) {
+        return '?';
+    }
     if (current->hasPiece()){
         return current->getPiece()->getName();
     }
@@ -188,6 +281,12 @@ bool Board::movePiece(char name, string direction){
 
     if (currentPiece->getDownloaded()){
         cout << "Piece not on board" << endl;
+        return false;
+    }
+
+    if (currentPiece->isCemented()) {
+        cout << "This is a cemented Piece!" << endl;
+        cout << "Please wait " << currentPiece->getCementCount() << " more turns to move piece." << endl;
         return false;
     }
 
@@ -246,7 +345,7 @@ bool Board::movePiece(char name, string direction){
     shared_ptr <Cell> targetCell = theBoard.at(newX).at(newY);
     
     //Check if server
-    if (targetCell->isServer()){
+    if (targetCell->isServer()) {
         if (targetCell->isServer() == player_num){
             cout << "Attempting to move onto own server" << endl;
             return false;
@@ -322,6 +421,15 @@ bool Board::movePiece(char name, string direction){
         }
     }
     return true;
+}
+
+void Board::updateCemented() {
+    for (int i = 0; i < cementedPieces.size(); ++i) {
+        cementedPieces.at(i)->decreaseCement();
+        if (cementedPieces.at(i)->getCementCount() == 0) {
+            cementedPieces.erase(cementedPieces.begin() + i);
+        }
+    }
 }
 
 shared_ptr <Player> Board::getP1(){

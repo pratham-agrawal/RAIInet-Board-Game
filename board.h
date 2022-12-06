@@ -10,6 +10,7 @@
 
 class Board: public Subject{
     std::vector<std::vector<std::shared_ptr<Cell>>> theBoard;
+    std::vector<std::shared_ptr <Piece>> cementedPieces;
     std::shared_ptr <Player> p1;
     std::shared_ptr <Player> p2;
     int playerTurn;
@@ -25,6 +26,8 @@ class Board: public Subject{
         void setTurn(int turn);
         void displayBoard();
         bool useAbility(int ability, int playerNum);
+        void updateCemented();
+        void updateHurricane();
         //void removePiece(p: *Piece);
 };
 

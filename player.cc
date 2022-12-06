@@ -7,6 +7,44 @@
 #include <random>
 using namespace std;
 
+void Player::setPieces(std::vector<std::shared_ptr <Piece>> p) {
+    pieces = p;
+}
+
+bool Player::isHurricane() {
+    return hurricane;
+}
+
+int Player::getHurricaneCount() {
+    return hurricaneCounter;
+}
+
+void Player::decreaseHurricane() {
+    --hurricaneCounter;
+    if (hurricaneCounter == 0) {
+        hurricane = false;
+    }
+}
+
+void Player::hurricaned() {
+    hurricane = true;
+    hurricaneCounter = 5;
+}
+
+void Player::shufflePieces(int playerNum) {
+    shuffle(pieces.begin(), pieces.end(), random_device());
+    char ascii;
+    if (playerNum == 1) {
+        ascii = 'a';
+    }
+    else {
+        ascii = 'A';
+    }
+    for (int i = 0; i < 8; ++i) {
+        pieces.at(i)->changeName(ascii + i);
+    }
+}
+
 Player::Player(): dataDownloaded{0}, virusDownloaded{0} {
     vector<shared_ptr <Piece>> pieces;
     vector<char> abilities;
@@ -43,20 +81,6 @@ int Player::getData() {
 
 int Player::getVirus() {
     return virusDownloaded;
-}
-
-void Player::shufflePieces(int playerNum) {
-    shuffle(pieces.begin(), pieces.end(), random_device());
-    char ascii;
-    if (playerNum == 1) {
-        ascii = 'a';
-    }
-    else {
-        ascii = 'A';
-    }
-    for (int i = 0; i < 8; ++i) {
-        pieces.at(i)->changeName(ascii + i);
-    }
 }
 
 int Player::searchToken(char c) {

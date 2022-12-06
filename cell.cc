@@ -12,6 +12,14 @@ int Cell::hasPiece() const{
     }
 }
 
+bool Cell::setHurricaned(bool val) {
+    hurricaned = val;
+}
+
+bool Cell::isHurricaned() {
+    return hurricaned;
+}
+
 
 int Cell::isFirewall() const{
     return firewall;
