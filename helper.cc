@@ -40,12 +40,25 @@ bool readFromFile(string file, shared_ptr <Board> b, shared_ptr <Player> player1
             //cout << "Executing ability: " << ability << endl;
             if (!b->useAbility(ability, b->getPlayerTurn())) {
               cout << "Invalid Input: Please Try Again" << endl;
-            }
+            } else {
+              b->setAbilityUsed(true);
+          }
         }
         else if (fileCommand == "board") {
             b->displayBoard();
         }
+        if (b->seeWinner() == 1){
+        cout << "Player 1 has won the game" << endl;
+        return true;
+        break;
+        }
+        else if (b->seeWinner() == 2){
+        cout << "Player 1 has won the game" << endl;
+        return true;
+        break;
+        }
     }
+    return false;
 }
 
 string charToAbility(char c) {
