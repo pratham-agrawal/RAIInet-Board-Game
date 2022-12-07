@@ -436,7 +436,8 @@ bool Board::movePiece(char name, string direction){
 }
 
 void Board::updateCemented() {
-    for (int i = 0; i < cementedPieces.size(); ++i) {
+    int size = cementedPieces.size();
+    for (int i = 0; i < size; ++i) {
         cementedPieces.at(i)->decreaseCement();
         if (cementedPieces.at(i)->getCementCount() == 0) {
             cementedPieces.erase(cementedPieces.begin() + i);

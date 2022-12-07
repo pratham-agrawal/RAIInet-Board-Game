@@ -96,7 +96,8 @@ int Player::searchToken(char c) {
 
 void Player::addAbility(string ability, int id) {
     int count = 0;
-    for (int i = 0; i < abilities.size(); ++i) {
+    int size = abilities.size();
+    for (int i = 0; i < size; ++i) {
         if (abilities.at(i)->getAbility() == ability) {
             ++count;
         }

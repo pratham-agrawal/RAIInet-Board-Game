@@ -1,7 +1,7 @@
 #include "cell.h"
 using namespace std;
 
-Cell::Cell(int row, int col) : row{row}, col{col}, firewall{0}, server{0}, piece{nullptr} {}
+Cell::Cell(int row, int col) : row{row}, col{col}, piece{nullptr}, firewall{0}, server{0}{}
 
 int Cell::hasPiece() const{
     if (piece == nullptr){
@@ -12,7 +12,7 @@ int Cell::hasPiece() const{
     }
 }
 
-bool Cell::setHurricaned(bool val) {
+void Cell::setHurricaned(bool val) {
     hurricaned = val;
 }
 
