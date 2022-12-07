@@ -31,6 +31,7 @@ class Board: public Subject{
         void updateHurricane();
         bool getAbilityUsed();
         void setAbilityUsed(bool val);
+        int seeWinner();
         //void removePiece(p: *Piece);
 };
 

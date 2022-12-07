@@ -463,3 +463,13 @@ void Board::setTurn(int turn){
 void Board::displayBoard(){
     notifyObservers();
 }
+
+int Board::seeWinner(){
+    if (p1->getData() == 4 || p2->getVirus() == 4){
+        return 1;
+    }
+    else if (p2->getData() == 4 || p1->getVirus() == 4){
+        return 2;
+    }
+    return 0;
+}

@@ -85,6 +85,14 @@ int main (int argc, char* argv[]) {
       ended = readFromFile(infile, b, player1, player2);
       if(ended) break;      
     }
+    if (b->seeWinner() == 1){
+      cout << "Player 1 has won the game" << endl;
+      break;
+    }
+    else if (b->seeWinner() == 2){
+      cout << "Player 1 has won the game" << endl;
+      break;
+    }
   }
 }
 
