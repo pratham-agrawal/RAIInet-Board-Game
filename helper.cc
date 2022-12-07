@@ -38,7 +38,7 @@ bool readFromFile(string file, shared_ptr <Board> b, shared_ptr <Player> player1
             int ability;
             in >> ability;
             //cout << "Executing ability: " << ability << endl;
-            if (!b->useAbility(ability, b->getPlayerTurn())) {
+            if (!b->useAbility(ability, b->getPlayerTurn(), in)) {
               cout << "Invalid Input: Please Try Again" << endl;
             } else {
               b->setAbilityUsed(true);
