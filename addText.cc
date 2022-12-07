@@ -6,12 +6,22 @@
 #include "ability.h"
 using namespace std;
 
+struct null_deleter
+{
+    void operator()(void const *) const
+    {
+    }
+};
+
+
 addText::addText(shared_ptr<Board> s): subject{s} {
-  subject->attach(this);
+  shared_ptr<Observer> obs (this, null_deleter());
+  subject->attach(obs);
 }
 
 addText::~addText() {
-  subject->detach(this);
+  shared_ptr<Observer> obs (this, null_deleter());
+  subject->detach(obs);
 }
 
 void addText::notify() {

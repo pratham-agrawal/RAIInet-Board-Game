@@ -41,9 +41,11 @@ shared_ptr <Piece> Cell::getPiece(){
     return piece;
 }
 
+/*
 void Cell::setBoard(shared_ptr <Board> b){
     theBoard = b;
 }
+*/
 
 void Cell::setFirewall(int x){
     firewall = x;

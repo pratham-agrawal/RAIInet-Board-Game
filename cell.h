@@ -10,7 +10,7 @@ class Piece;
 
 class Cell {
     int row, col;
-    std::shared_ptr <Board> theBoard;
+    //std::shared_ptr <Board> theBoard;
     std::shared_ptr <Piece> piece;
     int server;
     int firewall;
@@ -23,7 +23,7 @@ class Cell {
         int getRow();
         int getCol();
         std::shared_ptr <Piece> getPiece();
-        void setBoard(std::shared_ptr <Board> b);
+        //void setBoard(std::shared_ptr <Board> b);
         void setFirewall(int x);
         void setServer(int x);
         void setPiece(std::shared_ptr <Piece> p);
