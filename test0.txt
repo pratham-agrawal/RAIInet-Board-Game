@@ -1,2 +1,23 @@
 move a down
 board
+abilities
+ability 1 D
+abilities
+board
+ability 2 1 4
+move e down
+move E up
+move e down
+move E up
+move e down
+ability 4 e
+move E up
+move b down
+move E up
+move c down
+move E up
+move h down
+move E up
+move h right
+move h down
+move E up

@@ -14,6 +14,7 @@ class Board: public Subject{
     std::shared_ptr <Player> p1;
     std::shared_ptr <Player> p2;
     int playerTurn;
+    bool abilityUsed;
     public:
         Board(std::shared_ptr <Player> player1, std::shared_ptr <Player> player2, int playT);
         void basic_setup();
@@ -28,6 +29,8 @@ class Board: public Subject{
         bool useAbility(int ability, int playerNum);
         void updateCemented();
         void updateHurricane();
+        bool getAbilityUsed();
+        void setAbilityUsed(bool val);
         //void removePiece(p: *Piece);
 };
 
