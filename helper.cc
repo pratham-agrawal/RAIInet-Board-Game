@@ -19,6 +19,11 @@ bool readFromFile(string file, shared_ptr <Board> b, shared_ptr <Player> player1
             in >> link >> direction;
             //cout << "We want to move link: " << link << " direction: " << direction << endl;
             bool valid = b->movePiece(link, direction);
+            if (valid) {
+              b->updateCemented();
+              b->updateHurricane();
+              b->setAbilityUsed(false); 
+            }
             if (b->getPlayerTurn() == 1 && valid) {
               b->setTurn(2);
             }

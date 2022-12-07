@@ -1,0 +1,33 @@
+board
+move a down
+move A up
+board
+abilities
+move d down
+move D up
+move d down
+move D up
+board
+move d down
+board
+move A up
+move d down
+move A up
+move d down
+move A up
+move d down
+move A up
+move e left
+move A right
+move e down
+move E up
+move e down
+move E up
+move e down
+move E up
+move H up
+move h down
+move H up
+move h down
+move H up
+move h down
