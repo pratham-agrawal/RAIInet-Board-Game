@@ -69,7 +69,7 @@ int main (int argc, char* argv[]) {
       int ability;
       std::cin >> ability;
       //cout << "Executing ability: " << ability << endl;
-      if (!b->useAbility(ability, b->getPlayerTurn())) {
+      if (!b->useAbility(ability, b->getPlayerTurn(), cin)) {
         cout << "Invalid Input: Please Try Again" << endl;
       } else {
         b->setAbilityUsed(true);

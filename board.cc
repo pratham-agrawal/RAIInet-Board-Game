@@ -15,7 +15,7 @@ void Board::setAbilityUsed(bool val) {
 }
 
 
-bool Board::useAbility(int ability, int playerNum) {
+bool Board::useAbility(int ability, int playerNum, istream &in) {
     if (1 > ability || ability > 5) {
         return false;
     }
@@ -40,7 +40,7 @@ bool Board::useAbility(int ability, int playerNum) {
     char token;
     string name = player->getAbilities().at(ability - 1)->getAbility();
     if (!name.compare("Linkboost")) {
-        cin >> token;
+        in >> token;
         int index = player->searchToken(token);
         if (index == -1) {
             return false;
@@ -50,8 +50,8 @@ bool Board::useAbility(int ability, int playerNum) {
     else if (!name.compare("Firewall")) {
         int row;
         int col;
-        cin >> row;
-        cin >> col;
+        in >> row;
+        in >> col;
         if (row > 8 || row < 0 || col > 8 || col < 0) {
             return false;
         }
@@ -61,7 +61,7 @@ bool Board::useAbility(int ability, int playerNum) {
         theBoard.at(row).at(col)->setFirewall(playerNum);
     }
     else if (!name.compare("Download")) {
-        cin >> token;
+        in >> token;
         int index = opponent->searchToken(token);
         if (index == -1) {
             return false;
@@ -82,7 +82,7 @@ bool Board::useAbility(int ability, int playerNum) {
         theBoard.at(row).at(col)->setPiece(nullptr);
     }
     else if (!name.compare("Scan")) {
-        cin >> token;
+        in >> token;
         if (token >= 65 && token <= 72) {
             int index = p2->searchToken(token);
             if (index == -1) {
@@ -108,7 +108,7 @@ bool Board::useAbility(int ability, int playerNum) {
         }
     }
     else if (!name.compare("Polarize")) {
-        cin >> token;
+        in >> token;
         if (token >= 65 && token <= 72) {
             int index = p2->searchToken(token);
             if (index == -1) {
@@ -134,7 +134,7 @@ bool Board::useAbility(int ability, int playerNum) {
         }
     }
     else if (!name.compare("Umbrella")) {
-        cin >> token;
+        in >> token;
         int index = player->searchToken(token);
         if (index == -1) {
             return false;
@@ -142,7 +142,7 @@ bool Board::useAbility(int ability, int playerNum) {
         player->getPieces().at(index)->setUmbrella(true);
     }
     else if (!name.compare("Cement")) {
-        cin >> token;
+        in >> token;
         int index = opponent->searchToken(token);
         if (index == -1) {
             return false;
