@@ -9,6 +9,7 @@ using namespace std;
 
 void Player::setPieces(std::vector<std::shared_ptr <Piece>> p) {
     pieces = p;
+
 }
 
 bool Player::isHurricane() {
@@ -45,7 +46,7 @@ void Player::shufflePieces(int playerNum) {
     }
 }
 
-Player::Player(): dataDownloaded{0}, virusDownloaded{0} {
+Player::Player(): dataDownloaded{0}, virusDownloaded{0}, hurricane{false}, hurricaneCounter{0}{
     vector<shared_ptr <Piece>> pieces;
     vector<char> abilities;
 }
