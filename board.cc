@@ -6,8 +6,20 @@
 #include "piece.h"
 using namespace std;
 
+bool Board::getAbilityUsed() {
+    return abilityUsed;
+}
+
+void Board::setAbilityUsed(bool val) {
+    abilityUsed = val;
+}
+
+
 bool Board::useAbility(int ability, int playerNum) {
     if (1 > ability || ability > 5) {
+        return false;
+    }
+    if (abilityUsed) {
         return false;
     }
     if (playerNum == 1 && p1->getAbilities().at(ability - 1)->used()) {
@@ -190,7 +202,7 @@ void Board::updateHurricane() {
 }
 
 
-Board::Board(shared_ptr <Player> player1, shared_ptr <Player> player2, int playT): p1{player1}, p2{player2}, playerTurn{playT} {
+Board::Board(shared_ptr <Player> player1, shared_ptr <Player> player2, int playT): p1{player1}, p2{player2}, playerTurn{playT}, abilityUsed{false} {
     //Create empty cells
     for (int i=0; i<8; i++){
         vector<shared_ptr<Cell>> vect;

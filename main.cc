@@ -48,6 +48,7 @@ int main (int argc, char* argv[]) {
       if (valid) {
         b->updateCemented();
         b->updateHurricane();
+        b->setAbilityUsed(false); 
       }
       if (b->getPlayerTurn() == 1 && valid) {
         b->setTurn(2);
@@ -70,6 +71,8 @@ int main (int argc, char* argv[]) {
       //cout << "Executing ability: " << ability << endl;
       if (!b->useAbility(ability, b->getPlayerTurn())) {
         cout << "Invalid Input: Please Try Again" << endl;
+      } else {
+        b->setAbilityUsed(true);
       }
     }
     else if (command == "board") {
